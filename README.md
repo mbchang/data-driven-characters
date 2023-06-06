@@ -1,3 +1,3 @@
 # Data-Driven Character Chat
 
-Generate Character.AI characters from a corpus
+Generate [character.ai](https://beta.character.ai/) characters from a corpus.
