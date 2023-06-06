@@ -3,9 +3,10 @@ from dataclasses import asdict
 import json
 import os
 
-from src.constants import OUTPUT_ROOT
 from src.character import get_character_definition
 from src.corpus import get_characters, get_rolling_summaries, load_docs
+
+OUTPUT_ROOT = "output"
 
 
 def main():
