@@ -1,4 +1,5 @@
-from typing import Tuple
+from pydantic import root_validator
+from typing import Tuple, List, Dict
 
 from langchain import PromptTemplate, LLMChain
 from langchain.base_language import BaseLanguageModel
@@ -43,30 +44,13 @@ Do not reference the fact that the character is in a story; talk to the characte
     return description_chain
 
 
-class FitCharLimit:
+class FitCharLimit(Chain):
     """Fit the character limit to the length of the description."""
 
-    def __init__(
-        self,
-        chain: Chain,
-        character_range: Tuple[int],
-        llm: BaseLanguageModel,
-        return_intermediate_steps: bool = False,
-        verbose: bool = False,
-    ):
-        self.chain = chain
-
-        assert len(character_range) == 2, "character_range should be two integers"
-        assert (
-            character_range[0] < character_range[1]
-        ), "first element of character_range should be lower than the second element"
-        assert (
-            character_range[0] >= 0 and character_range[1] >= 0
-        ), "both elements of character_range should be non-negative"
-        self.character_range = character_range
-
-        self.llm = llm
-        self.revision_prompt_template = """
+    chain: Chain
+    character_range: Tuple[int, int]
+    llm: BaseLanguageModel
+    revision_prompt_template: str = """
 Consider the following passage.
 ---
 {passage}
@@ -80,21 +64,35 @@ Re-write the passage to contain {char_limit} characters while preserving the sty
 Cut the least salient points if necessary.
 Your revision should be in {perspective}.
 """
-        # Re-write the passage to contain between {lo} and {hi} characters while preserving the style and content of the original passage.
-        # we know that it is biased to be verbose so we just ask for the lower limit
+    verbose: bool = False
 
-        self.return_intermediate_steps = return_intermediate_steps
-        self.verbose = verbose
+    @root_validator(pre=True)
+    def check_character_range(cls, values):
+        character_range = values.get("character_range")
+        if character_range[0] >= character_range[1]:
+            raise ValueError(
+                "first element of character_range should be lower than the second element"
+            )
+        if character_range[0] < 0 or character_range[1] < 0:
+            raise ValueError("both elements of character_range should be non-negative")
 
-    # I suppose if we were to make this modular we would generate some constitutional principles on the fly?
-    # no, that won't work, because we would want to give immediate feedback.
-    # but in any case, we'd need to have some constraints, make it modular
-    # right now we should hack it to make it take both constraints into account, but we should eventually make it modular.
-    def run(self, **prompt_kwargs):
-        intermediate_steps = []
-        response = self.chain.run(**prompt_kwargs)
-        if self.return_intermediate_steps:
-            intermediate_steps.append(response)
+        return values
+
+    @property
+    def input_keys(self) -> List[str]:
+        return self.chain.input_keys
+
+    @property
+    def output_keys(self) -> List[str]:
+        return ["output"]
+
+    def _call(self, inputs: Dict[str, str]) -> Dict[str, str]:
+        output_1 = self.chain_1.run(inputs)
+        output_2 = self.chain_2.run(inputs)
+        return {"concat_output": output_1 + output_2}
+
+    def _call(self, inputs: Dict[str, str]) -> Dict[str, str]:
+        response = self.chain.run(**inputs)
         if self.verbose:
             print(response)
             print(f"Initial response: {len(response)} characters.")
@@ -121,8 +119,6 @@ Choose one of:
             len(response) < self.character_range[0]
             or len(response) > self.character_range[1]
         ):
-            # or you can make this a conversational chain?
-            # or you can add memory to this?
             response = LLMChain(
                 llm=self.llm,
                 prompt=PromptTemplate.from_template(self.revision_prompt_template),
@@ -135,14 +131,9 @@ Choose one of:
                 perspective=perspective,
             )
 
-            if self.return_intermediate_steps:
-                intermediate_steps.append(response)
             i += 1
             if self.verbose:
                 print(response)
                 print(f"Retry {i}: {len(response)} characters.")
 
-        output = {"output": response}
-        if self.return_intermediate_steps:
-            output.update({"intermediate_steps": intermediate_steps})
-        return output
+        return {"output": response}

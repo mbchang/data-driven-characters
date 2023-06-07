@@ -11,14 +11,14 @@ OUTPUT_ROOT = "output"
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--corpus", type=str, default="thor_love_and_thunder.txt")
+    parser.add_argument("--corpus", type=str, default="data/the_bro_code.txt")
     parser.add_argument("--chunk_size", type=int, default=2048)
     parser.add_argument("--chunk_overlap", type=int, default=64)
     parser.add_argument("--num_characters", type=int, default=3)
     args = parser.parse_args()
 
     # logging
-    corpus_name = os.path.splitext(args.corpus)[0]
+    corpus_name = os.path.splitext(os.path.basename(args.corpus))[0]
     output_dir = f"{OUTPUT_ROOT}/{corpus_name}"
     os.makedirs(output_dir, exist_ok=True)
     summaries_dir = f"{output_dir}/summaries"
@@ -27,14 +27,13 @@ def main():
 
     # load docs
     docs = load_docs(
-        corpus_name=args.corpus,
+        corpus_path=args.corpus,
         chunk_size=args.chunk_size,
         chunk_overlap=args.chunk_overlap,
     )
 
     # generate rolling summaries
-    intermediate_summaries = get_rolling_summaries(docs=docs, cache_dir=summaries_dir)
-    rolling_summaries = "\n\n".join(intermediate_summaries)
+    rolling_summaries = get_rolling_summaries(docs=docs, cache_dir=summaries_dir)
 
     # generate list of character
     characters = get_characters(

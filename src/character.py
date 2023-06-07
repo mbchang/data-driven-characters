@@ -26,7 +26,6 @@ def generate_character_ai_description(name, rolling_summaries, char_limit):
         chain=description_chain,
         character_range=(lower_limit, char_limit),
         llm=GPT4,
-        return_intermediate_steps=True,
         verbose=VERBOSE,
     )
     description = char_limit_chain.run(
@@ -34,7 +33,7 @@ def generate_character_ai_description(name, rolling_summaries, char_limit):
         description=f"{lower_limit}-character description",  # specify a fewer characters than the limit
         name=name,
     )
-    return description["output"]
+    return description
 
 
 def generate_greeting(name, short_description, long_description):
