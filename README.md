@@ -26,9 +26,10 @@ CHARACTER_NAME = "Thor"
 docs = load_docs(corpus_path=CORPUS, chunk_size=2048, chunk_overlap=64)
 
 # generate rolling summaries
-rolling_summaries = get_rolling_summaries(docs=docs)
+rolling_summaries = generate_rolling_summaries(docs=docs)
 
-character_definition = get_character_definition(name=CHARACTER_NAME, rolling_summaries="\n\n".join(rolling_summaries))
+# generate character.ai character definition
+character_definition = generate_character_definition(name=CHARACTER_NAME, rolling_summaries=rolling_summaries)
 
 print(json.dumps(asdict(character_definition), indent=4))
 ```
