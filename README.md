@@ -14,7 +14,7 @@ This repo enables you to do exactly that in three steps:
 3. Copy character definitions to character.ai to [create a character](https://beta.character.ai/character/create?) or [create a room](https://beta.character.ai/room/create?) and enjoy!
 
 ## Example
-Here is how you would generate the description of "Thor" from the movie transcript [Thor: Love and Thunder (2022)](https://scrapsfromtheloft.com/movies/thor-love-and-thunder-transcript/).
+Here is how to generate the description of "Thor" from the movie transcript [Thor: Love and Thunder (2022)](https://scrapsfromtheloft.com/movies/thor-love-and-thunder-transcript/).
 ```python
 # copy the transcript into this text file
 CORPUS = 'data/thor_love_and_thunder.txt'  
