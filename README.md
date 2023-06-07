@@ -31,11 +31,10 @@ CHARACTER_NAME = "Evelyn"
 # split corpus into a set of chunks
 docs = load_docs(corpus_path=CORPUS, chunk_size=2048, chunk_overlap=64)
 
-# generate rolling summaries
-rolling_summaries = generate_rolling_summaries(docs=docs)
-
 # generate character.ai character definition
-character_definition = generate_character_definition(name=CHARACTER_NAME, rolling_summaries=rolling_summaries)
+character_definition = generate_character_definition(
+    name=CHARACTER_NAME, 
+    rolling_summaries=generate_rolling_summaries(docs=docs))
 
 print(json.dumps(asdict(character_definition), indent=4))
 ```
