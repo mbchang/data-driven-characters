@@ -4,9 +4,9 @@ import os
 
 from langchain import PromptTemplate, LLMChain
 
-from src.chains import FitCharLimit, define_description_chain
-from src.constants import GPT3, GPT4, VERBOSE
-from src.utils import order_of_magnitude, apply_file_naming_convention
+from ddc.chains import FitCharLimit, define_description_chain
+from ddc.constants import GPT3, GPT4, VERBOSE
+from ddc.utils import order_of_magnitude, apply_file_naming_convention
 
 
 @dataclass

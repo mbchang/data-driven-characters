@@ -19,14 +19,14 @@ Here is how to generate the description of "Evelyn" from the movie [Everything E
 from dataclasses import asdict
 import json
 
-from src.character import generate_character_definition
-from src.corpus import generate_rolling_summaries, load_docs
+from ddc.character import generate_character_definition
+from ddc.corpus import generate_rolling_summaries, load_docs
 
 # copy the transcript into this text file
-CORPUS = 'data/everything_everywhere_all_at_once.txt'  
+CORPUS = 'data/everything_everywhere_all_at_once.txt'
 
 # the name of the character we want to generate a description for
-CHARACTER_NAME = "Evelyn"  
+CHARACTER_NAME = "Evelyn"
 
 # split corpus into a set of chunks
 docs = load_docs(corpus_path=CORPUS, chunk_size=2048, chunk_overlap=64)

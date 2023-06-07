@@ -10,7 +10,7 @@ from langchain.prompts.chat import (
     HumanMessagePromptTemplate,
 )
 
-from src.constants import GPT4
+from ddc.constants import GPT4
 
 
 def define_description_chain():
