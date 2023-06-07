@@ -50,6 +50,9 @@ gives
 ```
 Now you can [chat with Evelyn on character.ai](https://c.ai/c/be5UgphMggDyaf504SSdAdrlV2LHyEgFQZDA5WuQfgw).
 
+## About
+This repo generates [character.ai](https://beta.character.ai/) character descriptions from an existing corpus of text. It uses `gpt_3.5_turbo` to summarize the corpus and `gpt4` to generate character descriptions from the corpus. The character descriptions can be direclty copied to create a character on character.ai.
+
 ## Installation
 To install the data_driven_character_chat package, you need to clone the repository and install the dependencies.
 
