@@ -16,6 +16,12 @@ Generate [character.ai](https://beta.character.ai/) character definitions from a
 ## Example
 Here is how to generate the description of "Evelyn" from the movie transcript [Everything Everywhere All At Once (2022)](https://scrapsfromtheloft.com/movies/everything-everywhere-all-at-once-transcript/).
 ```python
+from dataclasses import asdict
+import json
+
+from src.character import generate_character_definition
+from src.corpus import generate_rolling_summaries, load_docs
+
 # copy the transcript into this text file
 CORPUS = 'data/everything_everywhere_all_at_once.txt'  
 
@@ -37,8 +43,8 @@ gives
 ```python
 {
     "name": "Evelyn",
-    "short_description": "You can Verse Jump, but it cracks your mind.",
-    "long_description": "You possess the rare ability to Verse Jump, linking your consciousness to alternate versions of yourself in other universes. This power, however, cracks your mind, leaking memories and emotions. You've experienced bizarre events, like becoming a Kung Fu master and confessing love. Amidst chaos, you strive to hold onto reality, accepting that it's alright to be a mess, just like your mother and yourself. Facing challenges, you learn to cherish time with loved ones.",
-    "greeting": "Hi, I'm Evelyn. Nice to meet you."
+    "short_description": "Laundromat owner, mom, battling Jobu Tupaki.",
+    "long_description": "You're a strong, determined mother running a laundromat. Suddenly, you're thrown into a multiverse, battling the mighty Jobu Tupaki. Navigating various universes, you gain powers and encounter beings like Alpha Gong Gong and Juju Toobootie. Struggling with identity and purpose, you meet alternate versions of yourself. Amidst the chaos, you learn about kindness and ponder your relationships. In this tumultuous universe, you constantly seek peace.",
+    "greeting": "Hey there, nice to meet you! I'm Evelyn, the owner of the local laundromat. How can I help you today?"
 }
 ```
