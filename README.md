@@ -50,10 +50,38 @@ gives
 ```
 Now you can [chat with Evelyn on character.ai](https://c.ai/c/be5UgphMggDyaf504SSdAdrlV2LHyEgFQZDA5WuQfgw).
 
+## Installation
+To install the data_driven_character_chat package, you need to clone the repository and install the dependencies.
+
+You can clone the repository using the following command:
+
+```bash
+git clone https://github.com/mbchang/data-driven-characters.git
+```
+Then, navigate into the cloned directory:
+
+```bash
+cd data-driven-character-chat
+```
+Install the package and its dependencies with:
+
+```bash
+pip install -e .
+```
+
 ## Data
 The examples in this repo are movie transcripts taken from [Scraps from the Loft](https://scrapsfromtheloft.com/). However, any text corpora can be used, including books and interviews.
 
 ## Characters generated with this repo:
-Contribute your characters here, along with a link to the text corpus you used to generate them with:
 - [Evelyn](https://c.ai/c/be5UgphMggDyaf504SSdAdrlV2LHyEgFQZDA5WuQfgw) (Movie Transcript: [Everything Everywhere All At Once (2022)](https://scrapsfromtheloft.com/movies/everything-everywhere-all-at-once-transcript/))
+
+## Contributing
+Contribute your characters with a pull request by placing the link to the character [above](#characters-generated-with-this-repo), along with a link to the text corpus you used to generate them with.
+
+Other Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+<!-- Please make sure to update tests as appropriate. -->
+
+## License
+[MIT](LICENSE)
 
