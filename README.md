@@ -6,7 +6,7 @@ Generate [character.ai](https://beta.character.ai/) character definitions from a
 
 *Running out of creativity coming up with your own character.ai character definitions?*
 
-*Wish you could just have a tool that takes an existing story and produces character.ai character definitions automatically?*
+*Wish you could automatically create character.ai character definitions from an existing story?*
 
 **This repo enables you to create data-driven characters in three steps:**
 1. Put the corpus into a single a `.txt` file inside the `data/` directory.
