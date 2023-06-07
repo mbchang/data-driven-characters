@@ -63,7 +63,7 @@ git clone https://github.com/mbchang/data-driven-characters.git
 Then, navigate into the cloned directory:
 
 ```bash
-cd data-driven-character-chat
+cd data-driven-characters
 ```
 Install the package and its dependencies with:
 
