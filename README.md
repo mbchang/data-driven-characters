@@ -4,11 +4,11 @@ Generate [character.ai](https://beta.character.ai/) character definitions from a
 
 ![image](assets/teaser.jpeg)
 
-Running out of creativity coming up with your own character.ai character definitions? 
+*Running out of creativity coming up with your own character.ai character definitions?*
 
-Wish you could just have a tool that takes an existing story and produces character.ai character definitions automatically?
+*Wish you could just have a tool that takes an existing story and produces character.ai character definitions automatically?*
 
-This repo enables you to do exactly that in three steps:
+**This repo enables you to create data-driven characters in three steps:**
 1. Put the corpus into a single a `.txt` file inside the `data/` directory.
 2. Run either `generate_single_character.ipynb` to generate the definition of a specific character or `generate_multiple_characters.ipynb` to generate the definitions of muliple characters
 3. Copy character definitions to character.ai to [create a character](https://beta.character.ai/character/create?) or [create a room](https://beta.character.ai/room/create?) and enjoy!
