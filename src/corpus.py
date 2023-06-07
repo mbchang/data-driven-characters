@@ -5,16 +5,16 @@ from langchain import PromptTemplate, LLMChain
 from langchain.chains.summarize import load_summarize_chain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-from src.constants import DATA_ROOT, GPT3, GPT4, VERBOSE
+from src.constants import GPT3, GPT4, VERBOSE
 
 
-def load_docs(corpus_name, chunk_size, chunk_overlap):
+def load_docs(corpus_path, chunk_size, chunk_overlap):
     """Load the corpus and split it into chunks."""
     text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
         chunk_size=chunk_size, chunk_overlap=chunk_overlap
     )
 
-    with open(os.path.join(DATA_ROOT, corpus_name)) as f:
+    with open(corpus_path) as f:
         corpus = f.read()
     docs = text_splitter.create_documents([corpus])
     return docs
