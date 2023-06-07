@@ -5,7 +5,7 @@ from langchain import PromptTemplate, LLMChain
 from langchain.chains.summarize import load_summarize_chain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-from src.constants import GPT3, GPT4, VERBOSE
+from data_driven_characters.constants import GPT3, GPT4, VERBOSE
 
 
 def load_docs(corpus_path, chunk_size, chunk_overlap):
