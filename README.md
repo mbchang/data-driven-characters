@@ -1,6 +1,6 @@
 # Data-Driven Character Chat
 
-Generate [character.ai](https://beta.character.ai/) character definitions from a corpus.
+Generate [character.ai](https://beta.character.ai/) character definitions from a corpus using [LangChain](https://docs.langchain.com/docs/).
 
 ![image](assets/teaser.jpeg)
 
