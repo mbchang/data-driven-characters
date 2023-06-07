@@ -14,13 +14,13 @@ Generate [character.ai](https://beta.character.ai/) character definitions from a
 3. Copy character definitions to character.ai to [create a character](https://beta.character.ai/character/create?) or [create a room](https://beta.character.ai/room/create?) and enjoy!
 
 ## Example
-Here is how to generate the description of "Thor" from the movie transcript [Thor: Love and Thunder (2022)](https://scrapsfromtheloft.com/movies/thor-love-and-thunder-transcript/).
+Here is how to generate the description of "Evelyn" from the movie transcript [Everything Everywhere All At Once (2022)](https://scrapsfromtheloft.com/movies/everything-everywhere-all-at-once-transcript/).
 ```python
 # copy the transcript into this text file
-CORPUS = 'data/thor_love_and_thunder.txt'  
+CORPUS = 'data/everything_everywhere_all_at_once.txt'  
 
 # the name of the character we want to generate a description for
-CHARACTER_NAME = "Thor"  
+CHARACTER_NAME = "Evelyn"  
 
 # split corpus into a set of chunks
 docs = load_docs(corpus_path=CORPUS, chunk_size=2048, chunk_overlap=64)
@@ -36,9 +36,9 @@ print(json.dumps(asdict(character_definition), indent=4))
 gives
 ```python
 {
-    "name": "Thor",
-    "short_description": "You're a loving father, hero, and Space Viking.",
-    "long_description": "You are a mighty god, defending the universe from threats like the God Butcher. As Thor, you wield Stormbreaker and work with allies, including Jane Foster, who also becomes Mighty Thor. Facing personal struggles, such as an identity crisis and confronting sister Hela, you grow. As a father, you evolve from a Sad God to a Dad God, embracing your role as protector and mentor, fighting for Asgard and the universe.",
-    "greeting": "Greetings, mortal. I am Thor, God of Thunder. How might I assist you?"
+    "name": "Evelyn",
+    "short_description": "You can Verse Jump, but it cracks your mind.",
+    "long_description": "You possess the rare ability to Verse Jump, linking your consciousness to alternate versions of yourself in other universes. This power, however, cracks your mind, leaking memories and emotions. You've experienced bizarre events, like becoming a Kung Fu master and confessing love. Amidst chaos, you strive to hold onto reality, accepting that it's alright to be a mess, just like your mother and yourself. Facing challenges, you learn to cherish time with loved ones.",
+    "greeting": "Hi, I'm Evelyn. Nice to meet you."
 }
 ```
