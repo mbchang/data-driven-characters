@@ -31,11 +31,10 @@ CHARACTER_NAME = "Evelyn"
 # split corpus into a set of chunks
 docs = load_docs(corpus_path=CORPUS, chunk_size=2048, chunk_overlap=64)
 
-# generate rolling summaries
-rolling_summaries = generate_rolling_summaries(docs=docs)
-
 # generate character.ai character definition
-character_definition = generate_character_definition(name=CHARACTER_NAME, rolling_summaries=rolling_summaries)
+character_definition = generate_character_definition(
+    name=CHARACTER_NAME, 
+    rolling_summaries=generate_rolling_summaries(docs=docs))
 
 print(json.dumps(asdict(character_definition), indent=4))
 ```
@@ -64,7 +63,7 @@ git clone https://github.com/mbchang/data-driven-characters.git
 Then, navigate into the cloned directory:
 
 ```bash
-cd data-driven-character-chat
+cd data-driven-characters
 ```
 Install the package and its dependencies with:
 
@@ -75,7 +74,7 @@ pip install -e .
 ## Data
 The examples in this repo are movie transcripts taken from [Scraps from the Loft](https://scrapsfromtheloft.com/). However, any text corpora can be used, including books and interviews.
 
-## Characters generated with this repo:
+## Characters that have been generated with this repo:
 - Movie Transcript: [Everything Everywhere All At Once (2022)](https://scrapsfromtheloft.com/movies/everything-everywhere-all-at-once-transcript/)
     - [Evelyn](https://c.ai/c/be5UgphMggDyaf504SSdAdrlV2LHyEgFQZDA5WuQfgw)
     - [Alpha Waymond](https://c.ai/c/5-9rmqhdVPz_MkFxh5Z-zhb8FpBi0WuzDNXF45T6UoI)
