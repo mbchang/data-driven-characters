@@ -60,7 +60,7 @@ def generate_characters(rolling_summaries, num_characters):
     """
     characters = LLMChain(
         llm=GPT4, prompt=PromptTemplate.from_template(characters_prompt_template)
-    ).run(rolling_summaries=rolling_summaries)
+    ).run(rolling_summaries="\n\n".join(rolling_summaries))
     # remove (, ), and " for each element of list
     return characters.split("\n")[:num_characters]
 

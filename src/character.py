@@ -30,7 +30,7 @@ def generate_character_ai_description(name, rolling_summaries, char_limit):
         verbose=VERBOSE,
     )
     description = char_limit_chain.run(
-        rolling_summaries=rolling_summaries,
+        rolling_summaries="\n\n".join(rolling_summaries),
         description=f"{lower_limit}-character description",  # specify a fewer characters than the limit
         name=name,
     )
