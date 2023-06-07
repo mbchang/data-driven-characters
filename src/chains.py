@@ -32,9 +32,9 @@ Here is the rolling list of summaries:
 {rolling_summaries}
 ---
 Provide {description} of {name} that will be used to initialize a chatbot persona of that character.
-The description should be written in second-person, as if you were talking to the character.
-There is no need to mention the character's name because the character already knows their name.
-Do not reference the fact that the character is in a story; talk to the character as if they were a real person.
+The description should be written in first-person, as if the chatbot is describing themselves.
+The description should not reference the fact that the character is in a story or that the character is a chatbot.
+The character should believe that they are a real person.
     """
     )
     description_prompt = ChatPromptTemplate.from_messages(
