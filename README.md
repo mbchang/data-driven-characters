@@ -78,7 +78,7 @@ The examples in this repo are movie transcripts taken from [Scraps from the Loft
 ## Contributing
 Contribute your characters with a pull request by placing the link to the character [above](#characters-generated-with-this-repo), along with a link to the text corpus you used to generate them with.
 
-Other Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Other pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 <!-- Please make sure to update tests as appropriate. -->
 
