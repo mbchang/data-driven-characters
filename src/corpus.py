@@ -30,9 +30,9 @@ def generate_rolling_summaries(docs):
     return intermediate_summaries
 
 
-def get_rolling_summaries(docs, cache_dir):
+def get_rolling_summaries(docs, cache_dir, force_refresh=False):
     """Load the rolling summaries from cache or generate them."""
-    if not os.path.exists(cache_dir):
+    if not os.path.exists(cache_dir) or force_refresh:
         os.makedirs(cache_dir, exist_ok=True)
         if VERBOSE:
             print("Summaries do not exist. Generating summaries.")
@@ -65,9 +65,9 @@ def generate_characters(rolling_summaries, num_characters):
     return characters.split("\n")[:num_characters]
 
 
-def get_characters(rolling_summaries, num_characters, cache_dir):
+def get_characters(rolling_summaries, num_characters, cache_dir, force_refresh=False):
     cache_file = os.path.join(cache_dir, "characters.json")
-    if not os.path.exists(cache_file):
+    if not os.path.exists(cache_file) or force_refresh:
         characters = generate_characters(rolling_summaries, num_characters)
         with open(cache_file, "w") as f:
             json.dump(characters, f)

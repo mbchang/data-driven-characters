@@ -51,6 +51,7 @@ Long description:
 ---
 
 Generate a greeting that {name} would say to someone they just met, without quotations.
+This greeting should reflect their personality.
 """
     greeting = LLMChain(
         llm=GPT3, prompt=PromptTemplate.from_template(greeting_template)
@@ -84,11 +85,11 @@ def generate_character_definition(name, rolling_summaries):
     return character_definition
 
 
-def get_character_definition(name, rolling_summaries, cache_dir):
+def get_character_definition(name, rolling_summaries, cache_dir, force_refresh=False):
     """Get a Character.ai definition from a cache or generate it."""
     cache_path = f"{cache_dir}/{apply_file_naming_convention(name)}.json"
 
-    if not os.path.exists(cache_path):
+    if not os.path.exists(cache_path) or force_refresh:
         character_definition = generate_character_definition(name, rolling_summaries)
         with open(cache_path, "w") as f:
             json.dump(asdict(character_definition), f)
