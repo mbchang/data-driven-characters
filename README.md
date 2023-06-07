@@ -14,7 +14,7 @@ Generate [character.ai](https://beta.character.ai/) character definitions from a
 3. Copy character definitions to character.ai to [create a character](https://beta.character.ai/character/create?) or [create a room](https://beta.character.ai/room/create?) and enjoy!
 
 ## Example
-Here is how to generate the description of "Evelyn" from the movie transcript [Everything Everywhere All At Once (2022)](https://scrapsfromtheloft.com/movies/everything-everywhere-all-at-once-transcript/).
+Here is how to generate the description of "Evelyn" from the movie [Everything Everywhere All At Once (2022)](https://scrapsfromtheloft.com/movies/everything-everywhere-all-at-once-transcript/).
 ```python
 from dataclasses import asdict
 import json
