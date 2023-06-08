@@ -1,5 +1,7 @@
 import faiss
+import math
 from tqdm import tqdm
+
 from langchain.chains import ConversationChain
 from langchain.docstore import InMemoryDocstore
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -8,21 +10,25 @@ from langchain.memory import (
     CombinedMemory,
 )
 from langchain.prompts import PromptTemplate
+from langchain.retrievers import TimeWeightedVectorStoreRetriever
 from langchain.vectorstores import FAISS
 
 from data_driven_characters.constants import GPT3
-from data_driven_characters.memory import ConversationVectorStoreRetrieverMemory
+from data_driven_characters.memory import GenerativeMemory
 
 
 # you can start off by retrieving from summaries
 # but later you can also retrieve from the corpus itself
 # or you can preprocess the corpus into a first-person summary of what happens (like a journal)
 # and then retrieve from that
-class RetrievalChatBot:
+class GenerativeChatBot:
     def __init__(self, character_definition, rolling_summaries):
         self.character_definition = character_definition
         self.rolling_summaries = rolling_summaries
         self.num_context_memories = 20
+        self.num_topics = 3
+        self.num_insights = 1
+
         self.chain = self.create_chain(character_definition)
 
     def create_chain(self, character_definition):
@@ -30,22 +36,34 @@ class RetrievalChatBot:
             memory_key="chat_history", input_key="input"
         )
 
-        context_memory = ConversationVectorStoreRetrieverMemory(
-            retriever=FAISS(
-                OpenAIEmbeddings().embed_query,
-                faiss.IndexFlatL2(1536),  # Dimensions of the OpenAIEmbeddings
-                InMemoryDocstore({}),
-                {},
-            ).as_retriever(
-                search_kwargs=dict(k=self.num_context_memories)
-            ),  # because each message pair counts as an entry
-            memory_key="context",
-            output_prefix=character_definition.name,
-            blacklist=[conv_memory.memory_key],
+        # num_topics, num_insights, reflection_threshold, num_context_memories are all related
+        context_memory = GenerativeMemory(
+            llm=GPT3,
+            num_topics_of_reflection=self.num_topics,
+            num_insights_per_topic=self.num_insights,
+            memory_retriever=TimeWeightedVectorStoreRetriever(
+                vectorstore=FAISS(
+                    OpenAIEmbeddings().embed_query,
+                    faiss.IndexFlatL2(1536),
+                    InMemoryDocstore({}),
+                    {},
+                    relevance_score_fn=lambda score: 1.0 - score / math.sqrt(2),
+                ),
+                other_score_keys=["importance"],
+                k=self.num_context_memories,
+            ),
+            verbose=True,
+            output_prefix=self.character_definition.name,
+            reflection_threshold=2,
+            # add_memory_key="response",  # specific to ConversationChain
+            # TODO: or should I modify this in save_context?
         )
         # add the rolling summaries to the context memory
         for i, summary in tqdm(enumerate(self.rolling_summaries)):
-            context_memory.save_context(inputs={}, outputs={f"[{i}]": summary})
+            context_memory.save_context(
+                inputs={}, outputs={context_memory.add_memory_key: summary}
+            )
+        # context_memory.pause_to_reflect()
 
         # Combined
         memory = CombinedMemory(memories=[conv_memory, context_memory])
@@ -69,7 +87,7 @@ You will believe that you are really {character_definition.name}.
 
 Story snippets for context:
 ---
-{{context}}
+{{relevant_memories}}
 ---
 
 Current conversation:
@@ -90,4 +108,14 @@ Human: {{input}}
         return self.character_definition.greeting
 
     def step(self, input):
-        return self.chain.run(input=input)
+        # import ipdb
+
+        # ipdb.set_trace(context=20)
+        kwargs = {
+            # self.memory.queries_key: [input],  # this gets fed into the memory retriever
+            "queries": [input]
+        }
+        return self.chain.run(input=input, **kwargs)
+
+
+# TODO: make relevant_memories be memory.relevant_memories_key

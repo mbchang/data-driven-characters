@@ -8,8 +8,9 @@ from data_driven_characters.corpus import (
     get_rolling_summaries,
     load_docs,
 )
-from data_driven_characters.chatbots.summary import SummaryChatBot
-from data_driven_characters.chatbots.retrieval import RetrievalChatBot
+from data_driven_characters.chatbots import SummaryChatBot
+from data_driven_characters.chatbots import RetrievalChatBot
+from data_driven_characters.chatbots import GenerativeChatBot
 
 OUTPUT_ROOT = "chat"
 
@@ -21,6 +22,7 @@ def main():
     parser.add_argument("--chunk_overlap", type=int, default=64)
     parser.add_argument("--character_name", type=str, default="Nick")
     parser.add_argument("--refresh_decriptions", action="store_true")
+    parser.add_argument("--chatbot_type", type=str, default="generative")
     args = parser.parse_args()
 
     # logging
@@ -50,10 +52,20 @@ def main():
     )
     print(json.dumps(asdict(character_definition), indent=4))
 
-    # chatbot = SummaryChatBot(character_definition=character_definition)
-    chatbot = RetrievalChatBot(
-        character_definition=character_definition, rolling_summaries=rolling_summaries
-    )
+    if args.chatbot_type == "summary":
+        chatbot = SummaryChatBot(character_definition=character_definition)
+    elif args.chatbot_type == "retrieval":
+        chatbot = RetrievalChatBot(
+            character_definition=character_definition,
+            rolling_summaries=rolling_summaries,
+        )
+    elif args.chatbot_type == "generative":
+        chatbot = GenerativeChatBot(
+            character_definition=character_definition,
+            rolling_summaries=rolling_summaries,
+        )
+    else:
+        raise ValueError(f"Unknown chatbot type: {args.chatbot_type}")
 
     print(f"{args.character_name}: {chatbot.greet()}")
     while True:
