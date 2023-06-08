@@ -14,20 +14,21 @@ from data_driven_characters.constants import GPT3
 from data_driven_characters.memory import ConversationVectorStoreRetrieverMemory
 
 
-# you can start off by retrieving from summaries
-# but later you can also retrieve from the corpus itself
-# or you can preprocess the corpus into a first-person summary of what happens (like a journal)
-# and then retrieve from that
 class RetrievalChatBot:
     def __init__(self, character_definition, rolling_summaries):
         self.character_definition = character_definition
         self.rolling_summaries = rolling_summaries
         self.num_context_memories = 20
+
+        self.chat_history_key = "chat_history"
+        self.context_key = "context"
+        self.input_key = "input"
+
         self.chain = self.create_chain(character_definition)
 
     def create_chain(self, character_definition):
         conv_memory = ConversationBufferMemory(
-            memory_key="chat_history", input_key="input"
+            memory_key=self.chat_history_key, input_key=self.input_key
         )
 
         context_memory = ConversationVectorStoreRetrieverMemory(
@@ -36,12 +37,10 @@ class RetrievalChatBot:
                 faiss.IndexFlatL2(1536),  # Dimensions of the OpenAIEmbeddings
                 InMemoryDocstore({}),
                 {},
-            ).as_retriever(
-                search_kwargs=dict(k=self.num_context_memories)
-            ),  # because each message pair counts as an entry
-            memory_key="context",
+            ).as_retriever(search_kwargs=dict(k=self.num_context_memories)),
+            memory_key=self.context_key,
             output_prefix=character_definition.name,
-            blacklist=[conv_memory.memory_key],
+            blacklist=[self.chat_history_key],
         )
         # add the rolling summaries to the context memory
         for i, summary in tqdm(enumerate(self.rolling_summaries)):
@@ -69,16 +68,16 @@ You will believe that you are really {character_definition.name}.
 
 Story snippets for context:
 ---
-{{context}}
+{{{self.context_key}}}
 ---
 
 Current conversation:
 ---
 {character_definition.name}: {character_definition.greeting}
-{{chat_history}}
+{{{self.chat_history_key}}}
 ---
 
-Human: {{input}}
+Human: {{{self.input_key}}}
 {character_definition.name}:"""
         )
         chatbot = ConversationChain(
