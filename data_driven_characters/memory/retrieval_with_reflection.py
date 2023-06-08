@@ -138,7 +138,6 @@ Question: {{topic}}
         else:
             assert self.response_key in outputs
             assert self.input_key in inputs
-            # should I concatenate the inputs here?
             mem = "\n".join(
                 [
                     f"{self.input_prefix}: {inputs[self.input_key]}",

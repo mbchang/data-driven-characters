@@ -2,7 +2,7 @@
 
 Generate [character.ai](https://beta.character.ai/) character definitions from a corpus using [LangChain](https://docs.langchain.com/docs/).
 
-![image](assets/teaser.jpeg)
+![image](assets/teaser_chatbot.jpg)
 
 *Running out of creativity coming up with your own character.ai character definitions?*
 
@@ -33,7 +33,7 @@ docs = load_docs(corpus_path=CORPUS, chunk_size=2048, chunk_overlap=64)
 
 # generate character.ai character definition
 character_definition = generate_character_definition(
-    name=CHARACTER_NAME, 
+    name=CHARACTER_NAME,
     rolling_summaries=generate_rolling_summaries(docs=docs))
 
 print(json.dumps(asdict(character_definition), indent=4))
