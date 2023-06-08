@@ -8,9 +8,12 @@ from data_driven_characters.corpus import (
     get_rolling_summaries,
     load_docs,
 )
-from data_driven_characters.chatbots import SummaryChatBot
-from data_driven_characters.chatbots import RetrievalChatBot
-from data_driven_characters.chatbots import GenerativeChatBot
+from data_driven_characters.chatbots import (
+    SummaryChatBot,
+    RetrievalChatBot,
+    GenerativeChatBot,
+)
+from data_driven_characters.interfaces import Streamlit, CommandLine
 
 OUTPUT_ROOT = "chat"
 
@@ -23,7 +26,15 @@ def main():
     parser.add_argument("--character_name", type=str, default="Nick")
     parser.add_argument("--refresh_decriptions", action="store_true")
     parser.add_argument("--chatbot_type", type=str, default="generative")
+    parser.add_argument("--ui", type=str, default="commandline")
     args = parser.parse_args()
+
+    if args.ui == "streamlit":
+        app = Streamlit()
+    elif args.ui == "commandline":
+        app = CommandLine()
+    else:
+        raise ValueError(f"Unknown UI: {args.ui}")
 
     # logging
     corpus_name = os.path.splitext(os.path.basename(args.corpus))[0]
@@ -67,11 +78,8 @@ def main():
     else:
         raise ValueError(f"Unknown chatbot type: {args.chatbot_type}")
 
-    print(f"{args.character_name}: {chatbot.greet()}")
-    while True:
-        text = input("You: ")
-        if text:
-            print(f"{args.character_name}: {chatbot.step(text)}")
+    app.configure(chatbot=chatbot)
+    app.run()
 
 
 if __name__ == "__main__":
