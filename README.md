@@ -15,7 +15,9 @@ Generate character chatbots from existing corpora.
 
 *Wish you could automatically create character chatbots that are directly grounded in an existing story?*
 
-**This repo enables you to create data-driven characters in three steps:**
+## This repo enables you to create data-driven characters in three steps
+
+<!-- **This repo enables you to create data-driven characters in three steps:** -->
 1. Upload a text corpus
 2. Specify a character in the corpus
 3. Enjoy
@@ -24,6 +26,11 @@ This repo provides **three ways** to interact with your data-driven characters:
 1. Export to character.ai
 2. Run in the command line
 3. Run in a streamlit app
+
+This repo supports constructing chatbots with **various kinds of memory management**, including:
+- summarization
+- retrieval
+- retrieval + reflection
 
 ## Why data-driven characters?
 > I could go read what Aristotle wrote, what Plato wrote, and I didn't have to have an intermediary in the way. And a book was a phenomenal thing. It got right from the source to the destination without anything in the middle! **The problem was you can't ask Aristotle a question.** And I think as we look towards the next fifty to a hundred years, if we really can come up with these machines, that can capture an underlying spirit or an underlying set of principles or an underlying way of looking at the world, then when the next Aristotle comes around, maybe if he carries around one of these machines with him his whole life, his or her whole life, and types in all this stuff. Then maybe someday after the person's dead and gone we can ask this machine, **hey what would Aristotle have said? What about this? And maybe we won't get the right answer, but maybe we will.** And that's really exciting to me.
