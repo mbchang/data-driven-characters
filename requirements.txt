@@ -2,4 +2,5 @@ faiss-cpu
 langchain
 loguru
 streamlit_chat
+tiktoken
 tqdm
