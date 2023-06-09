@@ -5,13 +5,36 @@ Generate character chatbots from existing corpora.
 
 <!-- probably say something like, the problem is that it is hard to have creavitiy, here we can do it automatically, jut input the text -->
 
+<!-- "My hope is someday, when the next Aristotle is alive, we can capture the underlying worldview of that Aristotle - in a computer. And someday, some student will be able not only to read the words Aristotle wrote, but ask Aristotle a question - and get an answer!"- Steve Jobs, 1985 -->
+
+<!-- https://twitter.com/zekedup/status/1661513104356671492 -->
+
 ![image](assets/teaser_chatbot.jpg)
 
-*Running out of creativity coming up with your own character.ai character definitions?*
+*Running out of creativity coming up with your own chatbot personalities?*
 
-*Wish you could automatically create character.ai character definitions from an existing story?*
+*Wish you could automatically create character chatbots that are directly grounded in an existing story?*
 
 **This repo enables you to create data-driven characters in three steps:**
+1. Upload a text corpus
+2. Specify a character in the corpus
+3. Enjoy
+
+This repo provides **three ways** to interact with your data-driven characters:
+1. export to character.ai
+2. run in the command line
+3. run in a streamlit app
+
+## Why data-driven characters?
+> I could go read what Aristotle wrote, what Plato wrote, and I didn't have to have an intermediary in the way. And a book was a phenomenal thing. It got right from the source to the destination without anything in the middle! The problem was you can't ask Aristotle a question. And I think as we look towards the next fifty to a hundred years, if we really can come up with these machines, that can capture an underlying spirit or an underlying set of principles or an underlying way of looking at the world, then when the next Aristotle comes around, maybe if he carries around one of these machines with him his whole life, his or her whole life, and types in all this stuff. Then maybe someday after the person's dead and gone we can ask this machine, hey what would Aristotle have said? What about this? And maybe we won't get the right answer, but maybe we will. And that's really exciting to me.
+>
+> <p align="right">- Steve Jobs, <a href="https://www.youtube.com/watch?v=vbdy5x5MNS8">International Design Conference, APSEN, 1983</a></p>
+
+<!-- LLMs might capture stuff in pre-training but now recent stuff, can impersonate chatbots
+problem: hard to be creative to create new chatbots
+solution: ground the chatbots in text corpora -->
+
+
 1. Put the corpus into a single a `.txt` file inside the `data/` directory.
 2. Run either `generate_single_character.ipynb` to generate the definition of a specific character or `generate_multiple_characters.ipynb` to generate the definitions of muliple characters
 3. Export character definitions to character.ai to [create a character](https://beta.character.ai/character/create?) or [create a room](https://beta.character.ai/room/create?) and enjoy!
