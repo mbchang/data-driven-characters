@@ -80,6 +80,7 @@ def main():
         placeholder="Your OpenAI API KEY",
         type="password",
     )
+    os.environ["OPENAI_API_KEY"] = openai_api_key
 
     with st.sidebar:
         uploaded_file = st.file_uploader("Upload corpus")
