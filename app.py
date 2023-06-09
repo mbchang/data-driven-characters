@@ -73,7 +73,7 @@ def get_character_definition(name, rolling_summaries):
 
 def main():
     st.title("Data-Driven Characters")
-    st.write("Create your own character chatbots, grounded in existing corpora.")
+    st.write("Upload a corpus and chat with a character generated from it.")
     openai_api_key = st.text_input(
         label="Your OpenAI API KEY",
         placeholder="Your OpenAI API KEY",
