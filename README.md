@@ -11,7 +11,7 @@ Generate character chatbots from existing corpora.
 
 ![image](assets/teaser_chatbot.jpg)
 
-*Running out of creativity coming up with your own chatbot personalities?*
+*Running out of creativity coming up with your own character chatbot descriptions?*
 
 *Wish you could automatically create character chatbots that are directly grounded in an existing story?*
 
@@ -37,6 +37,46 @@ This repo supports constructing chatbots with **various kinds of memory manageme
 > I could go read what Aristotle wrote, what Plato wrote, and I didn't have to have an intermediary in the way. And a book was a phenomenal thing. It got right from the source to the destination without anything in the middle! **The problem was you can't ask Aristotle a question.** And I think as we look towards the next fifty to a hundred years, if we really can come up with these machines, that can capture an underlying spirit or an underlying set of principles or an underlying way of looking at the world, then when the next Aristotle comes around, maybe if he carries around one of these machines with him his whole life, his or her whole life, and types in all this stuff. Then maybe someday after the person's dead and gone we can ask this machine, **hey what would Aristotle have said? What about this? And maybe we won't get the right answer, but maybe we will.** And that's really exciting to me.
 >
 > <p align="right">- Steve Jobs, <a href="https://www.youtube.com/watch?v=vbdy5x5MNS8">International Design Conference, APSEN, 1983</a></p>
+
+Books are [dead](https://www.youtube.com/watch?v=ZfytHvgHybA).
+Characters are *alive*.
+
+<!-- The key breakthrough of large language models is enabling a new way to interact with information: they make it possible to turn static text corpora into interactive experiences. (maybe put in blog post) -->
+
+If there is one use case of large language models (LLM) that people love, it is to bring characters, both real and fictional, to life.
+This may explain why [character.ai](https://beta.character.ai/) has about [3x more user engagement](https://www.similarweb.com/blog/insights/ai-news/character-ai-engagement/) than [ChatGPT](https://chat.openai.com/).
+
+The problems with character.ai, however, are that
+1. it is tedious to manually specify character definitions
+2. users have no control over how memory is managed in their character chatbots.
+<!-- As a result, we get (concrete example of a problem) -->
+
+Sure, if Aristotle is in the pre-training data of the LLM we might be able to chat with Aristotle.
+But what if you want to chat with a character from a movie that came out last month?
+Banking on the character you want to chat with existing in the pre-training data is unrealistic because pre-training LLMs is expensive.
+So currently users are stuck with manually writing the character definitions of their character chatbots.
+Until now.
+<!--
+ users to manually come up with character definitions themselves and (2) these character definitions
+
+
+it does not allow users to manage their character's memory.
+
+
+If there is one
+
+what if
+
+bring characters to life (in your pocket), both real and fictional
+
+
+if there is one valuable use case, it is entertainment.
+This is why Character.AI beats ChatGPT in user engagement (link).
+However, the problem is need to be creative.
+And relying on pre-training data won't work.
+So far users have just been manually specifying.
+This is why it's improtant to have data driven characters -->
+
 
 <!-- LLMs might capture stuff in pre-training but now recent stuff, can impersonate chatbots
 problem: hard to be creative to create new chatbots
