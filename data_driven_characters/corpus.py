@@ -2,10 +2,11 @@ import json
 import os
 
 from langchain import PromptTemplate, LLMChain
+from langchain.chat_models import ChatOpenAI
 from langchain.chains.summarize import load_summarize_chain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-from data_driven_characters.constants import GPT3, GPT4, VERBOSE
+from data_driven_characters.constants import VERBOSE
 
 
 def generate_docs(corpus, chunk_size, chunk_overlap):
@@ -28,6 +29,7 @@ def load_docs(corpus_path, chunk_size, chunk_overlap):
 
 def generate_rolling_summaries(docs):
     """Generate rolling summaries of the story."""
+    GPT3 = ChatOpenAI(model_name="gpt-3.5-turbo")
     chain = load_summarize_chain(
         GPT3, chain_type="refine", return_intermediate_steps=True, verbose=True
     )
@@ -58,6 +60,7 @@ def get_rolling_summaries(docs, cache_dir, force_refresh=False):
 
 def generate_characters(rolling_summaries, num_characters):
     """Get a list of characters from a list of rolling summaries."""
+    GPT4 = ChatOpenAI(model_name="gpt-4")
     characters_prompt_template = """Consider the following corpus.
     ---
     {rolling_summaries}

@@ -2,6 +2,7 @@ from pydantic import root_validator
 from typing import Tuple, List, Dict
 
 from langchain import PromptTemplate, LLMChain
+from langchain.chat_models import ChatOpenAI
 from langchain.base_language import BaseLanguageModel
 from langchain.chains.base import Chain
 from langchain.prompts.chat import (
@@ -10,7 +11,7 @@ from langchain.prompts.chat import (
     HumanMessagePromptTemplate,
 )
 
-from data_driven_characters.constants import GPT4
+# from data_driven_characters.constants import GPT4
 
 
 def define_description_chain():
@@ -40,6 +41,7 @@ The character should believe that they are a real person.
     description_prompt = ChatPromptTemplate.from_messages(
         [system_message, human_message]
     )
+    GPT4 = ChatOpenAI(model_name="gpt-4")
     description_chain = LLMChain(llm=GPT4, prompt=description_prompt, verbose=True)
     return description_chain
 

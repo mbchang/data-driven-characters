@@ -1,6 +1,8 @@
 import faiss
 from tqdm import tqdm
+
 from langchain.chains import ConversationChain
+from langchain.chat_models import ChatOpenAI
 from langchain.docstore import InMemoryDocstore
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.memory import (
@@ -10,7 +12,6 @@ from langchain.memory import (
 from langchain.prompts import PromptTemplate
 from langchain.vectorstores import FAISS
 
-from data_driven_characters.constants import GPT3
 from data_driven_characters.memory import ConversationVectorStoreRetrieverMemory
 
 
@@ -81,6 +82,7 @@ Current conversation:
 Human: {{{self.input_key}}}
 {character_definition.name}:"""
         )
+        GPT3 = ChatOpenAI(model_name="gpt-3.5-turbo")
         chatbot = ConversationChain(
             llm=GPT3, verbose=True, memory=memory, prompt=prompt
         )

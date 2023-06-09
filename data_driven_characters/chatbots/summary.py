@@ -1,12 +1,12 @@
-from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import ConversationChain
+from langchain.chat_models import ChatOpenAI
+
 from langchain.memory import (
     ConversationBufferMemory,
     CombinedMemory,
     ConversationSummaryMemory,
 )
-from data_driven_characters.constants import GPT3
 
 
 class SummaryChatBot:
@@ -20,10 +20,11 @@ class SummaryChatBot:
         self.chain = self.create_chain(character_definition)
 
     def create_chain(self, character_definition):
+        GPT3 = ChatOpenAI(model_name="gpt-3.5-turbo")
+
         conv_memory = ConversationBufferMemory(
             memory_key="chat_history", input_key="input"
         )
-
         summary_memory = ConversationSummaryMemory(
             llm=GPT3, memory_key="summary", input_key="input"
         )

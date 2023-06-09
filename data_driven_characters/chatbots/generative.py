@@ -3,6 +3,7 @@ import math
 from tqdm import tqdm
 
 from langchain.chains import ConversationChain
+from langchain.chat_models import ChatOpenAI
 from langchain.docstore import InMemoryDocstore
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.memory import (
@@ -13,7 +14,6 @@ from langchain.prompts import PromptTemplate
 from langchain.retrievers import TimeWeightedVectorStoreRetriever
 from langchain.vectorstores import FAISS
 
-from data_driven_characters.constants import GPT3
 from data_driven_characters.memory import GenerativeMemory
 
 
@@ -37,6 +37,7 @@ class GenerativeChatBot:
         )
 
         # num_topics, num_insights, reflection_threshold, num_context_memories are all related
+        GPT3 = ChatOpenAI(model_name="gpt-3.5-turbo")
         context_memory = GenerativeMemory(
             llm=GPT3,
             num_topics_of_reflection=self.num_topics,
@@ -109,9 +110,6 @@ Human: {{input}}
         return self.character_definition.greeting
 
     def step(self, input):
-        # import ipdb
-
-        # ipdb.set_trace(context=20)
         kwargs = {
             # self.memory.queries_key: [input],  # this gets fed into the memory retriever
             "queries": [input]

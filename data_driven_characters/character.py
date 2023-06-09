@@ -2,10 +2,12 @@ from dataclasses import dataclass, asdict
 import json
 import os
 
+from langchain.chat_models import ChatOpenAI
 from langchain import PromptTemplate, LLMChain
 
 from data_driven_characters.chains import FitCharLimit, define_description_chain
-from data_driven_characters.constants import GPT3, GPT4, VERBOSE
+
+from data_driven_characters.constants import VERBOSE
 from data_driven_characters.utils import (
     order_of_magnitude,
     apply_file_naming_convention,
@@ -25,6 +27,7 @@ def generate_character_ai_description(name, rolling_summaries, char_limit):
     lower_limit = char_limit - 10 ** (order_of_magnitude(char_limit))
 
     description_chain = define_description_chain()
+    GPT4 = ChatOpenAI(model_name="gpt-4")
     char_limit_chain = FitCharLimit(
         chain=description_chain,
         character_range=(lower_limit, char_limit),
@@ -56,6 +59,7 @@ Long description:
 Generate a greeting that {name} would say to someone they just met, without quotations.
 This greeting should reflect their personality.
 """
+    GPT3 = ChatOpenAI(model_name="gpt-3.5-turbo")
     greeting = LLMChain(
         llm=GPT3, prompt=PromptTemplate.from_template(greeting_template)
     ).run(
