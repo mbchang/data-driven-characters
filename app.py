@@ -73,7 +73,9 @@ def get_character_definition(name, rolling_summaries):
 
 def main():
     st.title("Data-Driven Characters")
-    st.write("Upload a corpus and chat with a character generated from it.")
+    st.write(
+        "Upload a corpus in the sidebar to generate a character chatbot that is grounded in the corpus's content."
+    )
     openai_api_key = st.text_input(
         label="Your OpenAI API KEY",
         placeholder="Your OpenAI API KEY",
