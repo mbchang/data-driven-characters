@@ -1,2 +1,3 @@
+faiss
 langchain
 streamlit_chat
