@@ -5,7 +5,7 @@ import os
 import streamlit as st
 from streamlit_chat import message
 
-from data_driven_characters.character import get_character_definition
+from data_driven_characters.character import generate_character_definition
 from data_driven_characters.corpus import (
     get_rolling_summaries,
     load_docs,
@@ -62,6 +62,29 @@ def create_chatbot(character_definition, rolling_summaries, chatbot_type):
     return chatbot
 
 
+@st.cache_data(persist="disk")
+def process_corpus(corpus_path, summaries_dir):
+    # load docs
+    docs = load_docs(
+        corpus_path=corpus_path,
+        chunk_size=2048,
+        chunk_overlap=64,
+    )
+
+    # generate rolling summaries
+    rolling_summaries = get_rolling_summaries(docs=docs, cache_dir=summaries_dir)
+    return rolling_summaries
+
+
+@st.cache_data(persist="disk")
+def get_character_definition(name, rolling_summaries):
+    character_definition = generate_character_definition(
+        name=name,
+        rolling_summaries=rolling_summaries,
+    )
+    return character_definition
+
+
 def main():
     os.makedirs(OUTPUT_ROOT, exist_ok=True)
     os.makedirs(DATA_ROOT, exist_ok=True)
@@ -112,7 +135,7 @@ def main():
                 st.session_state["character_name"] = character_name
 
                 with st.spinner("Processing corpus (this will take a while)..."):
-                    # load docs
+                    # # load docs
                     docs = load_docs(
                         corpus_path=corpus_path,
                         chunk_size=2048,
@@ -123,13 +146,13 @@ def main():
                     rolling_summaries = get_rolling_summaries(
                         docs=docs, cache_dir=summaries_dir
                     )
+                    # rolling_summaries = process_corpus(corpus_path, summaries_dir)
 
                 with st.spinner("Generating character definition..."):
                     # get character definition
                     character_definition = get_character_definition(
                         name=character_name,
                         rolling_summaries=rolling_summaries,
-                        cache_dir=character_definitions_dir,
                     )
                     print(json.dumps(asdict(character_definition), indent=4))
                     chatbot_type = st.selectbox(
