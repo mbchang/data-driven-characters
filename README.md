@@ -57,6 +57,9 @@ But what if you want to chat with a character from a movie that came out last mo
 And current LLMs that do do retrieval are not designed to be character chatbots -->
 So currently users are stuck with manually writing the character definitions of their character chatbots.
 
+![image](https://github.com/mbchang/data-driven-characters/assets/6439365/e42121d9-4977-4cb8-9274-372dbd8485b3)
+
+
 Until now.
 
 **The purpose of this repo is to serve as hackable starting point for creating your own data-driven character chatbots.**
