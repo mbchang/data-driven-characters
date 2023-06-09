@@ -2,7 +2,7 @@
 
 Generate [character.ai](https://beta.character.ai/) character definitions from a corpus using [LangChain](https://docs.langchain.com/docs/).
 
-![image](assets/teaser.jpeg)
+![image](assets/teaser_chatbot.jpg)
 
 *Running out of creativity coming up with your own character.ai character definitions?*
 
@@ -11,7 +11,7 @@ Generate [character.ai](https://beta.character.ai/) character definitions from a
 **This repo enables you to create data-driven characters in three steps:**
 1. Put the corpus into a single a `.txt` file inside the `data/` directory.
 2. Run either `generate_single_character.ipynb` to generate the definition of a specific character or `generate_multiple_characters.ipynb` to generate the definitions of muliple characters
-3. Copy character definitions to character.ai to [create a character](https://beta.character.ai/character/create?) or [create a room](https://beta.character.ai/room/create?) and enjoy!
+3. Export character definitions to character.ai to [create a character](https://beta.character.ai/character/create?) or [create a room](https://beta.character.ai/room/create?) and enjoy!
 
 ## Example
 Here is how to generate the description of "Evelyn" from the movie [Everything Everywhere All At Once (2022)](https://scrapsfromtheloft.com/movies/everything-everywhere-all-at-once-transcript/).
@@ -33,7 +33,7 @@ docs = load_docs(corpus_path=CORPUS, chunk_size=2048, chunk_overlap=64)
 
 # generate character.ai character definition
 character_definition = generate_character_definition(
-    name=CHARACTER_NAME, 
+    name=CHARACTER_NAME,
     rolling_summaries=generate_rolling_summaries(docs=docs))
 
 print(json.dumps(asdict(character_definition), indent=4))

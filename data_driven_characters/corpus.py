@@ -8,15 +8,21 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from data_driven_characters.constants import GPT3, GPT4, VERBOSE
 
 
-def load_docs(corpus_path, chunk_size, chunk_overlap):
-    """Load the corpus and split it into chunks."""
+def generate_docs(corpus, chunk_size, chunk_overlap):
+    """Generate docs from a corpus."""
     text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
         chunk_size=chunk_size, chunk_overlap=chunk_overlap
     )
+    docs = text_splitter.create_documents([corpus])
+    return docs
+
+
+def load_docs(corpus_path, chunk_size, chunk_overlap):
+    """Load the corpus and split it into chunks."""
 
     with open(corpus_path) as f:
         corpus = f.read()
-    docs = text_splitter.create_documents([corpus])
+    docs = generate_docs(corpus, chunk_size, chunk_overlap)
     return docs
 
 
