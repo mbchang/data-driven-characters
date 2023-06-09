@@ -18,7 +18,7 @@ from data_driven_characters.chatbots import (
 
 
 def reset_chat():
-    st.cache_resource.clear()  # but this should be in app.py
+    st.cache_resource.clear()
     if "messages" in st.session_state:
         del st.session_state["messages"]
 
