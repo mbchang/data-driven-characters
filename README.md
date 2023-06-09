@@ -51,12 +51,17 @@ The problems with character.ai, however, are that
 2. users have no control over how memory is managed in their character chatbots.
 <!-- As a result, we get (concrete example of a problem) -->
 
-Sure, if Aristotle is in the pre-training data of the LLM we might be able to chat with Aristotle.
+If Aristotle is in the pre-training data of the LLM, we might be able to chat with Aristotle through the LLM.
 But what if you want to chat with a character from a movie that came out last month?
 Banking on the character you want to chat with existing in the pre-training data is unrealistic because pre-training LLMs is expensive.
 So currently users are stuck with manually writing the character definitions of their character chatbots.
 
 Until now.
+
+**The purpose of this repo is to serve as hackable starting point for creating your own data-driven character chatbots.**
+It provides a simple library built on top of [LangChain](https://docs.langchain.com/docs/) for processing any text corpus, creating character definitions, and managing memory, with various examples and interfaces that make it easy to spin up and debug your own character chatbots.
+
+
 <!--
  users to manually come up with character definitions themselves and (2) these character definitions
 
