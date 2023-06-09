@@ -53,7 +53,8 @@ The problems with character.ai, however, are that
 
 If Aristotle is in the pre-training data of the LLM, we might be able to chat with Aristotle through the LLM.
 But what if you want to chat with a character from a movie that came out last month?
-Banking on the character you want to chat with existing in the pre-training data is unrealistic because pre-training LLMs is expensive.
+<!-- Banking on the character you want to chat with existing in the pre-training data is unrealistic because pre-training LLMs is expensive.
+And current LLMs that do do retrieval are not designed to be character chatbots -->
 So currently users are stuck with manually writing the character definitions of their character chatbots.
 
 Until now.
