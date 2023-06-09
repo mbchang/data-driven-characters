@@ -15,7 +15,7 @@ Generate character chatbots from existing corpora.
 
 *Wish you could automatically create character chatbots that are directly grounded in an existing story?*
 
-## This repo enables you to create data-driven characters in three steps
+## Create data-driven characters in three steps
 
 <!-- **This repo enables you to create data-driven characters in three steps:** -->
 1. Upload a text corpus
