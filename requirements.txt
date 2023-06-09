@@ -1,4 +1,5 @@
 faiss-cpu
 langchain
+loguru
 streamlit_chat
 tqdm
