@@ -1,3 +1,4 @@
 faiss-cpu
 langchain
 streamlit_chat
+tqdm
