@@ -22,6 +22,7 @@ Generate character chatbots from existing corpora.
 2. Specify a character in the corpus
 3. Enjoy
 
+## Features
 This repo provides **three ways** to interact with your data-driven characters:
 1. Export to character.ai
 2. Run in the command line
