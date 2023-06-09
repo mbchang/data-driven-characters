@@ -18,7 +18,6 @@ from data_driven_characters.chatbots import (
 
 
 def reset_chat():
-    clear_user_input()
     st.cache_resource.clear()  # but this should be in app.py
     if "messages" in st.session_state:
         del st.session_state["messages"]
@@ -26,7 +25,7 @@ def reset_chat():
 
 def clear_user_input():
     if "user_input" in st.session_state:
-        st.session_state.user_input = ""
+        st.session_state["user_input"] = ""
 
 
 @st.cache_resource()
@@ -116,6 +115,7 @@ def main():
                     "character_name" in st.session_state
                     and st.session_state["character_name"] != character_name
                 ):
+                    clear_user_input()
                     reset_chat()
 
                 st.session_state["character_name"] = character_name
@@ -140,6 +140,7 @@ def main():
                         "chatbot_type" in st.session_state
                         and st.session_state["chatbot_type"] != chatbot_type
                     ):
+                        clear_user_input()
                         reset_chat()
 
                     st.session_state["chatbot_type"] = chatbot_type
@@ -162,8 +163,8 @@ def main():
             label=f"Chat with {chatbot.character_definition.name}",
             placeholder=f"Chat with {chatbot.character_definition.name}",
             label_visibility="collapsed",
+            key="user_input",
         )
-
         reset_chatbot = right.button("Reset", on_click=clear_user_input)
         if reset_chatbot:
             reset_chat()
@@ -178,7 +179,7 @@ def main():
 
         # the new message
         if user_input:
-            st.session_state["user_input"] = user_input
+            # st.session_state["user_input"] = user_input
             st.session_state.messages.append({"role": "user", "content": user_input})
             message(user_input, is_user=True)
             with st.spinner(f"{chatbot.character_definition.name} is thinking..."):

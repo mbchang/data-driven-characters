@@ -1,6 +1,9 @@
 # Data-Driven Characters
 
-Generate [character.ai](https://beta.character.ai/) character definitions from a corpus using [LangChain](https://docs.langchain.com/docs/).
+<!-- Generate [character.ai](https://beta.character.ai/) character definitions from a corpus using [LangChain](https://docs.langchain.com/docs/). -->
+Generate character chatbots from existing corpora.
+
+<!-- probably say something like, the problem is that it is hard to have creavitiy, here we can do it automatically, jut input the text -->
 
 ![image](assets/teaser_chatbot.jpg)
 
