@@ -1,5 +1,5 @@
 class CommandLine:
-    def configure(self, chatbot):
+    def __init__(self, chatbot):
         self.chatbot = chatbot
 
     def run(self):
