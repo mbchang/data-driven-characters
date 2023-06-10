@@ -19,11 +19,6 @@ class BufferChatBot:
         GPT3 = ChatOpenAI(model_name="gpt-3.5-turbo")
 
         memory = ConversationBufferMemory(memory_key="chat_history", input_key="input")
-        # summary_memory = ConversationSummaryMemory(
-        #     llm=GPT3, memory_key="summary", input_key="input"
-        # )
-        # Combined
-        # memory = CombinedMemory(memories=[conv_memory, summary_memory])
         prompt = PromptTemplate.from_template(
             f"""The following is a friendly conversation between a human and an AI.
 The AI is a chatbot that has been initialized with the following first-person character description:
