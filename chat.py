@@ -13,6 +13,7 @@ from data_driven_characters.chatbots import (
     BufferChatBot,
     SummaryChatBot,
     RetrievalChatBot,
+    RetrievalOnlyChatBot,
     GenerativeChatBot,
 )
 from data_driven_characters.interfaces import CommandLine, Streamlit
@@ -39,6 +40,16 @@ def create_chatbot(character_definition, rolling_summaries, chatbot_type, corpus
             chunk_overlap=16,
         )
         chatbot = RetrievalChatBot(
+            character_definition=character_definition,
+            rolling_summaries=[doc.page_content for doc in docs],
+        )
+    elif chatbot_type == "retrieval_only":
+        docs = load_docs(
+            corpus_path=corpus_path,
+            chunk_size=256,
+            chunk_overlap=16,
+        )
+        chatbot = RetrievalOnlyChatBot(
             character_definition=character_definition,
             rolling_summaries=[doc.page_content for doc in docs],
         )
