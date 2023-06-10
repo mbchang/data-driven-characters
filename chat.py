@@ -10,6 +10,7 @@ from data_driven_characters.corpus import (
     load_docs,
 )
 from data_driven_characters.chatbots import (
+    BufferChatBot,
     SummaryChatBot,
     RetrievalChatBot,
     GenerativeChatBot,
@@ -20,7 +21,11 @@ OUTPUT_ROOT = "chat"
 
 
 def create_chatbot(character_definition, rolling_summaries, chatbot_type, corpus_path):
-    if chatbot_type == "summary":
+    if chatbot_type == "buffer":
+        chatbot = BufferChatBot(
+            character_definition=character_definition,
+        )
+    elif chatbot_type == "summary":
         chatbot = SummaryChatBot(character_definition=character_definition)
     elif chatbot_type == "retrieval":
         chatbot = RetrievalChatBot(
