@@ -20,8 +20,6 @@ OUTPUT_ROOT = "chat"
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--corpus", type=str, default="data/the_bro_code.txt")
-    parser.add_argument("--chunk_size", type=int, default=2048)
-    parser.add_argument("--chunk_overlap", type=int, default=64)
     parser.add_argument("--character_name", type=str, default="Nick")
     parser.add_argument("--refresh_decriptions", action="store_true")
     parser.add_argument("--chatbot_type", type=str, default="generative")
@@ -38,8 +36,8 @@ def main():
     # load docs
     docs = load_docs(
         corpus_path=args.corpus,
-        chunk_size=args.chunk_size,
-        chunk_overlap=args.chunk_overlap,
+        chunk_size=256 if args.chatbot_type == "retrieval_raw" else 2048,
+        chunk_overlap=16 if args.chatbot_type == "retrieval_raw" else 64,
     )
 
     # generate rolling summaries
@@ -60,6 +58,11 @@ def main():
         chatbot = RetrievalChatBot(
             character_definition=character_definition,
             rolling_summaries=rolling_summaries,
+        )
+    elif args.chatbot_type == "retrieval_raw":
+        chatbot = RetrievalChatBot(
+            character_definition=character_definition,
+            rolling_summaries=[doc.page_content for doc in docs],
         )
     elif args.chatbot_type == "generative":
         chatbot = GenerativeChatBot(
