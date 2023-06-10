@@ -94,6 +94,10 @@ The examples in this repo are movie transcripts taken from [Scraps from the Loft
     - [Bradley "Rooster" Bradshaw](https://c.ai/c/Cw7Nn7ufOGUwRKsQ2AGqMclIPwtSbvX6knyePMETev4)
     - [Admiral Cain](https://c.ai/c/5X8w0ZoFUGTOOghki2QtQx4QSfak2CEJC86Zn-jJCss)
 
+## Creating your own chatbots
+Example:
+`python chat.py --corpus data/thor_love_and_thunder.txt --character_name Thor --chatbot_type retrieval`
+
 ## Contributing
 Contribute your characters with a pull request by placing the link to the character [above](#characters-generated-with-this-repo), along with a link to the text corpus you used to generate them with.
 
