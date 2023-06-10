@@ -25,7 +25,7 @@ class GenerativeChatBot:
     def __init__(self, character_definition, rolling_summaries):
         self.character_definition = character_definition
         self.rolling_summaries = rolling_summaries
-        self.num_context_memories = 20
+        self.num_context_memories = 16
         self.num_topics = 3
         self.num_insights = 1
 

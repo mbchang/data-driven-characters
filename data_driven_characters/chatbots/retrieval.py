@@ -19,7 +19,7 @@ class RetrievalChatBot:
     def __init__(self, character_definition, rolling_summaries):
         self.character_definition = character_definition
         self.rolling_summaries = rolling_summaries
-        self.num_context_memories = 20
+        self.num_context_memories = 16
 
         self.chat_history_key = "chat_history"
         self.context_key = "context"
