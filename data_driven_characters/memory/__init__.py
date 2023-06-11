@@ -1,2 +1,1 @@
 from .retrieval import ConversationVectorStoreRetrieverMemory
-from .retrieval_with_reflection import GenerativeMemory
