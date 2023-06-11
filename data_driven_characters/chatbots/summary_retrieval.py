@@ -43,7 +43,7 @@ class SummaryRetrievalChatBot:
             output_prefix=character_definition.name,
             blacklist=[self.chat_history_key],
         )
-        # add the rolling summaries to the context memory
+        # add the documents to the context memory
         for i, summary in tqdm(enumerate(self.documents)):
             context_memory.save_context(inputs={}, outputs={f"[{i}]": summary})
 
