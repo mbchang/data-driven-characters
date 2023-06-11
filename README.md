@@ -1,22 +1,36 @@
 # Data-Driven Characters
 
-<!-- Generate [character.ai](https://beta.character.ai/) character definitions from a corpus using [LangChain](https://docs.langchain.com/docs/). -->
-Generate character chatbots from existing corpora.
-
-<!-- probably say something like, the problem is that it is hard to have creavitiy, here we can do it automatically, jut input the text -->
+Generate character chatbots from existing corpora with [LangChain](https://docs.langchain.com/docs/).
 
 ![image](assets/teaser_chatbot.jpg)
 
-*Running out of creativity coming up with your own character.ai character definitions?*
+**TLDR: This repo enables you to create data-driven characters in three steps:**
+1. Upload a text corpus
+2. Specify the name of a character in the corpus
+3. Enjoy
 
-*Wish you could automatically create character.ai character definitions from an existing story?*
+## About
+The purpose of data-driven-characters is to serve as a minimal hackable starting point for creating your own data-driven character chatbots. It provides a simple library built on top of LangChain for processing any text corpus, creating character definitions, and managing memory, with various examples and interfaces that make it easy to spin up and debug your own character chatbots.
 
-**This repo enables you to create data-driven characters in three steps:**
+## Features
+This repo provides three ways to interact with your data-driven characters:
+1. Export to character.ai
+2. Debug locally in the command line or with a Streamlit interface
+3. Host a self-contained Streamlit app in the browser
+
+**Example chatbot architectures provided in this repo include:**
+1. character summary
+2. retrieval over transcript
+3. retrieval over summarized transcript
+4. character summary + retrieval over transcript
+5. character summary + retrieval over summarized transcript
+
+## Export to character.ai
 1. Put the corpus into a single a `.txt` file inside the `data/` directory.
 2. Run either `generate_single_character.ipynb` to generate the definition of a specific character or `generate_multiple_characters.ipynb` to generate the definitions of muliple characters
 3. Export character definitions to character.ai to [create a character](https://beta.character.ai/character/create?) or [create a room](https://beta.character.ai/room/create?) and enjoy!
 
-## Example
+### Example
 Here is how to generate the description of "Evelyn" from the movie [Everything Everywhere All At Once (2022)](https://scrapsfromtheloft.com/movies/everything-everywhere-all-at-once-transcript/).
 ```python
 from dataclasses import asdict
@@ -52,8 +66,39 @@ gives
 ```
 Now you can [chat with Evelyn on character.ai](https://c.ai/c/be5UgphMggDyaf504SSdAdrlV2LHyEgFQZDA5WuQfgw).
 
-## About
-This repo generates [character.ai](https://beta.character.ai/) character descriptions from an existing corpus of text. It uses `gpt_3.5_turbo` to summarize the corpus and `gpt4` to generate character descriptions from the corpus. The character descriptions can be direclty copied to create a character on character.ai.
+## Creating your own chatbots
+Beyond generating character.ai character definitions, this repo gives you tools to easily create, debug, and run your own chatbots trained on your own corpora.
+
+This repo implements the following tools for packaging information for your character chatbots:
+1. character summary
+2. retrieval over the transcript
+3. retrieval over a summarized version of the transcript
+
+Generated transcript summaries and character definitions are automatically cached in the `output/<corpus>` directory.
+
+### Debug locally
+**Command Line Interface**
+
+Example command: 
+
+```
+python chat.py --corpus data/everything_everywhere_all_at_once.txt --character_name Evelyn --chatbot_type retrieval --retrieval_docs raw
+```
+
+**Streamlit Interface**
+
+Example command:
+
+```
+python -m streamlit run chat.py -- --corpus data/everything_everywhere_all_at_once.txt --character_name Evelyn --chatbot_type retrieval --retrieval_docs raw
+```
+
+### Host on Streamlit
+Run the following command:
+```
+python -m streamlit run app.py
+```
+Interact with the app [here]([url](https://mbchang-data-driven-characters-app-273bzg.streamlit.app/)).
 
 ## Installation
 To install the data_driven_character_chat package, you need to clone the repository and install the dependencies.
@@ -77,7 +122,7 @@ pip install -e .
 ## Data
 The examples in this repo are movie transcripts taken from [Scraps from the Loft](https://scrapsfromtheloft.com/). However, any text corpora can be used, including books and interviews.
 
-## Characters that have been generated with this repo:
+## Character.ai characters that have been generated with this repo:
 - Movie Transcript: [Everything Everywhere All At Once (2022)](https://scrapsfromtheloft.com/movies/everything-everywhere-all-at-once-transcript/)
     - [Evelyn](https://c.ai/c/be5UgphMggDyaf504SSdAdrlV2LHyEgFQZDA5WuQfgw)
     - [Alpha Waymond](https://c.ai/c/5-9rmqhdVPz_MkFxh5Z-zhb8FpBi0WuzDNXF45T6UoI)
@@ -93,10 +138,6 @@ The examples in this repo are movie transcripts taken from [Scraps from the Loft
     - [Peter "Maverick" Mitchell](https://c.ai/c/sWIpYun3StvmhHshlBx4q2l3pMuhceQFPTOvBwRpl9o)
     - [Bradley "Rooster" Bradshaw](https://c.ai/c/Cw7Nn7ufOGUwRKsQ2AGqMclIPwtSbvX6knyePMETev4)
     - [Admiral Cain](https://c.ai/c/5X8w0ZoFUGTOOghki2QtQx4QSfak2CEJC86Zn-jJCss)
-
-## Creating your own chatbots
-Example:
-`python chat.py --corpus data/thor_love_and_thunder.txt --character_name Thor --chatbot_type retrieval`
 
 ## Contributing
 Contribute your characters with a pull request by placing the link to the character [above](#characters-generated-with-this-repo), along with a link to the text corpus you used to generate them with.
