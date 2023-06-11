@@ -4,8 +4,6 @@ from streamlit_chat import message
 
 class Streamlit:
     def __init__(self, chatbot):
-        st.title("Data Driven Characters")
-        st.write("Create your own character chatbots, grounded in existing corpora.")
         self.chatbot = chatbot
 
     def clear_user_input(self):

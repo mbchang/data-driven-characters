@@ -90,6 +90,12 @@ def main():
         chatbot = st.cache_resource(create_chatbot)(
             args.corpus, args.character_name, args.chatbot_type, args.retrieval_docs
         )
+        st.title("Data Driven Characters")
+        st.write("Create your own character chatbots, grounded in existing corpora.")
+        st.divider()
+        st.markdown(f"**chatbot type**: *{args.chatbot_type}*")
+        if "retrieval" in args.chatbot_type:
+            st.markdown(f"**retrieving from**: *{args.retrieval_docs} corpus*")
         app = Streamlit(chatbot=chatbot)
     else:
         raise ValueError(f"Unknown interface: {args.interface}")
