@@ -74,7 +74,7 @@ This repo implements the following tools for packaging information for your char
 2. retrieval over the transcript
 3. retrieval over a summarized version of the transcript
 
-Generated transcript summaries and character definitions are automatically cached in the `output/<corpus>` directory.
+Generated transcript summaries and character definitions are cached in the `output/<corpus>` directory.
 
 ### Debug locally
 **Command Line Interface**
