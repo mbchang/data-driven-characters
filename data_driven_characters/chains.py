@@ -11,8 +11,6 @@ from langchain.prompts.chat import (
     HumanMessagePromptTemplate,
 )
 
-# from data_driven_characters.constants import GPT4
-
 
 def define_description_chain():
     """Define the chain for generating character descriptions."""

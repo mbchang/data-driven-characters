@@ -61,7 +61,6 @@ def process_corpus(corpus):
     return rolling_summaries
 
 
-# TODO: this should be a json
 @st.cache_data(persist="disk")
 def get_character_definition(name, rolling_summaries):
     character_definition = generate_character_definition(
@@ -181,7 +180,6 @@ def main():
 
         # the new message
         if user_input:
-            # st.session_state["user_input"] = user_input
             st.session_state.messages.append({"role": "user", "content": user_input})
             message(user_input, is_user=True)
             with st.spinner(f"{chatbot.character_definition.name} is thinking..."):

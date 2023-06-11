@@ -90,7 +90,7 @@ python chat.py --corpus data/everything_everywhere_all_at_once.txt --character_n
 Example command:
 
 ```
-python -m streamlit run chat.py -- --corpus data/everything_everywhere_all_at_once.txt --character_name Evelyn --chatbot_type retrieval --retrieval_docs raw
+python -m streamlit run chat.py -- --corpus data/everything_everywhere_all_at_once.txt --character_name Evelyn --chatbot_type retrieval --retrieval_docs summarized --interface streamlit
 ```
 
 ### Host on Streamlit
