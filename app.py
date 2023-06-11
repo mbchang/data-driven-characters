@@ -13,7 +13,7 @@ from data_driven_characters.corpus import (
 from data_driven_characters.chatbots import (
     SummaryChatBot,
     RetrievalChatBot,
-    GenerativeChatBot,
+    SummaryRetrievalChatBot,
 )
 
 
@@ -35,12 +35,12 @@ def create_chatbot(character_definition, rolling_summaries, chatbot_type):
     elif chatbot_type == "retrieval":
         chatbot = RetrievalChatBot(
             character_definition=character_definition,
-            rolling_summaries=rolling_summaries,
+            documents=rolling_summaries,
         )
-    elif chatbot_type == "generative":
-        chatbot = GenerativeChatBot(
+    elif chatbot_type == "summary with retrieval":
+        chatbot = SummaryRetrievalChatBot(
             character_definition=character_definition,
-            rolling_summaries=rolling_summaries,
+            documents=rolling_summaries,
         )
     else:
         raise ValueError(f"Unknown chatbot type: {chatbot_type}")
@@ -95,7 +95,7 @@ def main():
             # scrollable text
             st.markdown(
                 f"""
-                <div style='overflow: auto; height: 300px; border: 1px solid gray; border-radius: 5px; padding: 10px'>
+                <div style='overflow: auto; height: 200px; border: 1px solid gray; border-radius: 5px; padding: 10px'>
                     {corpus}</div>
                 """,
                 unsafe_allow_html=True,
@@ -135,8 +135,8 @@ def main():
                     print(json.dumps(character_definition, indent=4))
                     chatbot_type = st.selectbox(
                         "Select a memory type",
-                        options=["summary", "retrieval", "generative"],
-                        index=0,
+                        options=["summary", "retrieval", "summary with retrieval"],
+                        index=2,
                     )
                     if (
                         "chatbot_type" in st.session_state
