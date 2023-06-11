@@ -17,7 +17,7 @@ from data_driven_characters.chatbots import (
 )
 from data_driven_characters.interfaces import CommandLine, Streamlit
 
-OUTPUT_ROOT = "chat"
+OUTPUT_ROOT = "output"
 
 
 def create_chatbot(corpus, character_name, chatbot_type, retrieval_docs):
