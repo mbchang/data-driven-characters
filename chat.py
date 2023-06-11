@@ -74,11 +74,25 @@ def create_chatbot(corpus, character_name, chatbot_type, retrieval_docs):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--corpus", type=str, default="data/the_bro_code.txt")
-    parser.add_argument("--character_name", type=str, default="Nick")
-    parser.add_argument("--chatbot_type", type=str, default="summary_retrieval")
-    parser.add_argument("--retrieval_docs", type=str, default="summarized")
-    parser.add_argument("--interface", type=str, default="cli")
+    parser.add_argument(
+        "--corpus", type=str, default="data/everything_everywhere_all_at_once.txt"
+    )
+    parser.add_argument("--character_name", type=str, default="Evelyn")
+    parser.add_argument(
+        "--chatbot_type",
+        type=str,
+        default="summary_retrieval",
+        choices=["summary", "retrieval", "summary_retrieval"],
+    )
+    parser.add_argument(
+        "--retrieval_docs",
+        type=str,
+        default="summarized",
+        choices=["raw", "summarized"],
+    )
+    parser.add_argument(
+        "--interface", type=str, default="cli", choices=["cli", "streamlit"]
+    )
     args = parser.parse_args()
 
     if args.interface == "cli":
