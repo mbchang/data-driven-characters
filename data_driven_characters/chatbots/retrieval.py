@@ -16,9 +16,9 @@ from data_driven_characters.memory import ConversationVectorStoreRetrieverMemory
 
 
 class RetrievalChatBot:
-    def __init__(self, character_definition, rolling_summaries):
+    def __init__(self, character_definition, documents):
         self.character_definition = character_definition
-        self.rolling_summaries = rolling_summaries
+        self.documents = documents
         self.num_context_memories = 16
 
         self.chat_history_key = "chat_history"
@@ -43,8 +43,8 @@ class RetrievalChatBot:
             output_prefix=character_definition.name,
             blacklist=[self.chat_history_key],
         )
-        # add the rolling summaries to the context memory
-        for i, summary in tqdm(enumerate(self.rolling_summaries)):
+        # add the documents to the context memory
+        for i, summary in tqdm(enumerate(self.documents)):
             context_memory.save_context(inputs={}, outputs={f"[{i}]": summary})
 
         # Combined
@@ -52,12 +52,6 @@ class RetrievalChatBot:
         prompt = PromptTemplate.from_template(
             f"""Your name is {character_definition.name}.
 You are a character from a story, snippets of which are provided below.
-You have the following first-person character description:
-
-Character description:
----
-{character_definition.long_description}
----
 
 You will have a conversation with a Human, and you will engage in a dialogue with them.
 You will reflect {character_definition.name}'s personality, interests, desires, emotions, and other traits.

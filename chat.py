@@ -9,54 +9,63 @@ from data_driven_characters.corpus import (
     get_rolling_summaries,
     load_docs,
 )
+
 from data_driven_characters.chatbots import (
-    BufferChatBot,
-    SummaryChatBot,
+    CharacterDescriptionChatBot,
     RetrievalChatBot,
-    RetrievalOnlyChatBot,
-    GenerativeChatBot,
+    RetrievalCharacterDescriptionChatBot,
 )
 from data_driven_characters.interfaces import CommandLine, Streamlit
 
 OUTPUT_ROOT = "chat"
 
 
-def create_chatbot(character_definition, rolling_summaries, chatbot_type, corpus_path):
-    if chatbot_type == "buffer":
-        chatbot = BufferChatBot(
-            character_definition=character_definition,
-        )
-    elif chatbot_type == "summary":
-        chatbot = SummaryChatBot(character_definition=character_definition)
+def create_chatbot(corpus, character_name, chatbot_type, retrieval_docs):
+    # logging
+    corpus_name = os.path.splitext(os.path.basename(corpus))[0]
+    output_dir = f"{OUTPUT_ROOT}/{corpus_name}"
+    os.makedirs(output_dir, exist_ok=True)
+    summaries_dir = f"{output_dir}/summaries"
+    character_definitions_dir = f"{output_dir}/character_definitions"
+    os.makedirs(character_definitions_dir, exist_ok=True)
+
+    # load docs
+    docs = load_docs(corpus_path=corpus, chunk_size=2048, chunk_overlap=64)
+
+    # generate rolling summaries
+    rolling_summaries = get_rolling_summaries(docs=docs, cache_dir=summaries_dir)
+
+    # get character definition
+    character_definition = get_character_definition(
+        name=character_name,
+        rolling_summaries=rolling_summaries,
+        cache_dir=character_definitions_dir,
+    )
+    print(json.dumps(asdict(character_definition), indent=4))
+
+    # construct retrieval documents
+    if retrieval_docs == "raw":
+        documents = [
+            doc.page_content
+            for doc in load_docs(corpus_path=corpus, chunk_size=256, chunk_overlap=16)
+        ]
+    elif retrieval_docs == "summarized":
+        documents = rolling_summaries
+    else:
+        raise ValueError(f"Unknown retrieval docs type: {retrieval_docs}")
+
+    # initialize chatbot
+    if chatbot_type == "character_description":
+        chatbot = CharacterDescriptionChatBot(character_definition=character_definition)
     elif chatbot_type == "retrieval":
         chatbot = RetrievalChatBot(
             character_definition=character_definition,
-            rolling_summaries=rolling_summaries,
+            documents=documents,
         )
-    elif chatbot_type == "retrieval_raw":
-        docs = load_docs(
-            corpus_path=corpus_path,
-            chunk_size=256,
-            chunk_overlap=16,
-        )
-        chatbot = RetrievalChatBot(
+    elif chatbot_type == "retrieval_character_description":
+        chatbot = RetrievalCharacterDescriptionChatBot(
             character_definition=character_definition,
-            rolling_summaries=[doc.page_content for doc in docs],
-        )
-    elif chatbot_type == "retrieval_only":
-        docs = load_docs(
-            corpus_path=corpus_path,
-            chunk_size=256,
-            chunk_overlap=16,
-        )
-        chatbot = RetrievalOnlyChatBot(
-            character_definition=character_definition,
-            rolling_summaries=[doc.page_content for doc in docs],
-        )
-    elif chatbot_type == "generative":
-        chatbot = GenerativeChatBot(
-            character_definition=character_definition,
-            rolling_summaries=rolling_summaries,
+            documents=documents,
         )
     else:
         raise ValueError(f"Unknown chatbot type: {chatbot_type}")
@@ -67,52 +76,19 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--corpus", type=str, default="data/the_bro_code.txt")
     parser.add_argument("--character_name", type=str, default="Nick")
-    parser.add_argument("--refresh_decriptions", action="store_true")
-    parser.add_argument("--chatbot_type", type=str, default="generative")
-    parser.add_argument("--interface", type=str, default="commandline")
+    parser.add_argument("--chatbot_type", type=str, default="retrieval")
+    parser.add_argument("--retrieval_docs", type=str, default="summarized")
+    parser.add_argument("--interface", type=str, default="cli")
     args = parser.parse_args()
 
-    # logging
-    corpus_name = os.path.splitext(os.path.basename(args.corpus))[0]
-    output_dir = f"{OUTPUT_ROOT}/{corpus_name}"
-    os.makedirs(output_dir, exist_ok=True)
-    summaries_dir = f"{output_dir}/summaries"
-    character_definitions_dir = f"{output_dir}/character_definitions"
-    os.makedirs(character_definitions_dir, exist_ok=True)
-
-    # load docs
-    docs = load_docs(
-        corpus_path=args.corpus,
-        chunk_size=2048,
-        chunk_overlap=64,
-    )
-
-    # generate rolling summaries
-    rolling_summaries = get_rolling_summaries(docs=docs, cache_dir=summaries_dir)
-
-    # get character definition
-    character_definition = get_character_definition(
-        name=args.character_name,
-        rolling_summaries=rolling_summaries,
-        cache_dir=character_definitions_dir,
-        force_refresh=args.refresh_decriptions,
-    )
-    print(json.dumps(asdict(character_definition), indent=4))
-
-    if args.interface == "commandline":
+    if args.interface == "cli":
         chatbot = create_chatbot(
-            character_definition=character_definition,
-            rolling_summaries=rolling_summaries,
-            chatbot_type=args.chatbot_type,
-            corpus_path=args.corpus,
+            args.corpus, args.character_name, args.chatbot_type, args.retrieval_docs
         )
         app = CommandLine(chatbot=chatbot)
     elif args.interface == "streamlit":
         chatbot = st.cache_resource(create_chatbot)(
-            character_definition=character_definition,
-            rolling_summaries=rolling_summaries,
-            chatbot_type=args.chatbot_type,
-            corpus_path=args.corpus,
+            args.corpus, args.character_name, args.chatbot_type, args.retrieval_docs
         )
         app = Streamlit(chatbot=chatbot)
     else:
