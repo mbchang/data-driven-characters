@@ -101,7 +101,10 @@ Run the following command:
 ```
 python -m streamlit run app.py
 ```
-Interact with the app [here](https://mbchang-data-driven-characters-app-273bzg.streamlit.app/).
+This will produce an app that looks like this:
+![image](https://github.com/mbchang/data-driven-characters/assets/6439365/b5ed2aa7-e509-47f2-b0c2-a26f99d76106)
+
+Interact with the hosted app [here](https://mbchang-data-driven-characters-app-273bzg.streamlit.app/).
 
 ## Installation
 To install the data_driven_character_chat package, you need to clone the repository and install the dependencies.
