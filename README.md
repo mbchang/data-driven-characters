@@ -14,9 +14,9 @@ The purpose of data-driven-characters is to serve as a minimal hackable starting
 
 ## Features
 This repo provides three ways to interact with your data-driven characters:
-1. Export to character.ai
-2. Debug locally in the command line or with a Streamlit interface
-3. Host a self-contained Streamlit app in the browser
+1. [Export to character.ai](https://github.com/mbchang/data-driven-characters/tree/main#export-to-characterai)
+2. [Debug locally in the command line or with a Streamlit interface](https://github.com/mbchang/data-driven-characters/tree/main#debug-locally)
+3. [Host a self-contained Streamlit app in the browser](https://github.com/mbchang/data-driven-characters/tree/main#host-on-streamlit)
 
 **Example chatbot architectures provided in this repo include:**
 1. character summary
