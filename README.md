@@ -92,6 +92,9 @@ Example command:
 ```
 python -m streamlit run chat.py -- --corpus data/everything_everywhere_all_at_once.txt --character_name Evelyn --chatbot_type retrieval --retrieval_docs summarized --interface streamlit
 ```
+This produces a UI based on [the official Streamlit chatbot example]([url](https://github.com/streamlit/llm-examples/blob/main/Chatbot.py)) that looks like this:
+![image](https://github.com/mbchang/data-driven-characters/assets/6439365/14317eaa-d2d9-48fa-ac32-7f515825cb85)
+
 
 ### Host on Streamlit
 Run the following command:
