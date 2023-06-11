@@ -1,3 +1,3 @@
-from .character_description import CharacterDescriptionChatBot
+from .summary import SummaryChatBot
 from .retrieval import RetrievalChatBot
-from .retrieval_with_character_description import RetrievalCharacterDescriptionChatBot
+from .summary_retrieval import SummaryRetrievalChatBot

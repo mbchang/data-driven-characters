@@ -5,7 +5,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 
 
-class CharacterDescriptionChatBot:
+class SummaryChatBot:
     def __init__(self, character_definition):
         self.character_definition = character_definition
         self.chain = self.create_chain(character_definition)

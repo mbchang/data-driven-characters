@@ -11,9 +11,9 @@ from data_driven_characters.corpus import (
 )
 
 from data_driven_characters.chatbots import (
-    CharacterDescriptionChatBot,
+    SummaryChatBot,
     RetrievalChatBot,
-    RetrievalCharacterDescriptionChatBot,
+    SummaryRetrievalChatBot,
 )
 from data_driven_characters.interfaces import CommandLine, Streamlit
 
@@ -55,15 +55,15 @@ def create_chatbot(corpus, character_name, chatbot_type, retrieval_docs):
         raise ValueError(f"Unknown retrieval docs type: {retrieval_docs}")
 
     # initialize chatbot
-    if chatbot_type == "character_description":
-        chatbot = CharacterDescriptionChatBot(character_definition=character_definition)
+    if chatbot_type == "summary":
+        chatbot = SummaryChatBot(character_definition=character_definition)
     elif chatbot_type == "retrieval":
         chatbot = RetrievalChatBot(
             character_definition=character_definition,
             documents=documents,
         )
-    elif chatbot_type == "retrieval_character_description":
-        chatbot = RetrievalCharacterDescriptionChatBot(
+    elif chatbot_type == "summary_retrieval":
+        chatbot = SummaryRetrievalChatBot(
             character_definition=character_definition,
             documents=documents,
         )
@@ -76,7 +76,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--corpus", type=str, default="data/the_bro_code.txt")
     parser.add_argument("--character_name", type=str, default="Nick")
-    parser.add_argument("--chatbot_type", type=str, default="retrieval")
+    parser.add_argument("--chatbot_type", type=str, default="summary_retrieval")
     parser.add_argument("--retrieval_docs", type=str, default="summarized")
     parser.add_argument("--interface", type=str, default="cli")
     args = parser.parse_args()

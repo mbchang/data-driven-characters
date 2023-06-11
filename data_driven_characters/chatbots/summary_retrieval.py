@@ -15,7 +15,7 @@ from langchain.vectorstores import FAISS
 from data_driven_characters.memory import ConversationVectorStoreRetrieverMemory
 
 
-class RetrievalCharacterDescriptionChatBot:
+class SummaryRetrievalChatBot:
     def __init__(self, character_definition, documents):
         self.character_definition = character_definition
         self.documents = documents
