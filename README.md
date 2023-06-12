@@ -144,6 +144,8 @@ The examples in this repo are movie transcripts taken from [Scraps from the Loft
     - [Peter "Maverick" Mitchell](https://c.ai/c/sWIpYun3StvmhHshlBx4q2l3pMuhceQFPTOvBwRpl9o)
     - [Bradley "Rooster" Bradshaw](https://c.ai/c/Cw7Nn7ufOGUwRKsQ2AGqMclIPwtSbvX6knyePMETev4)
     - [Admiral Cain](https://c.ai/c/5X8w0ZoFUGTOOghki2QtQx4QSfak2CEJC86Zn-jJCss)
+- Fan Fiction: [My Immortal](https://ia801201.us.archive.org/0/items/MyImmortalFanFiction/My%20Immortal.xhtml)
+    - [Ebony Dark'ness Dementia Raven Way](https://c.ai/c/7rOo5z_Nfa-nAlz8hKEezzxTPE6amGXRow98m0v05XY) (courtesy of [@sdtoyer](https://twitter.com/sdtoyer))
 
 ## Contributing
 Contribute your characters with a pull request by placing the link to the character [above](#characters-generated-with-this-repo), along with a link to the text corpus you used to generate them with.
