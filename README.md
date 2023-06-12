@@ -5,8 +5,8 @@ Generate character chatbots from existing corpora with [LangChain](https://docs.
 ![image](assets/teaser_chatbot.jpg)
 
 **TLDR: This repo enables you to create data-driven characters in three steps:**
-1. Upload a text corpus
-2. Specify the name of a character in the corpus
+1. Upload a corpus
+2. Name a character
 3. Enjoy
 
 ## About
