@@ -10,7 +10,7 @@ Generate character chatbots from existing corpora with [LangChain](https://docs.
 3. Enjoy
 
 ## About
-The purpose of data-driven-characters is to serve as a minimal hackable starting point for creating your own data-driven character chatbots. It provides a simple library built on top of LangChain for processing any text corpus, creating character definitions, and managing memory, with various examples and interfaces that make it easy to spin up and debug your own character chatbots.
+The purpose of `data-driven-characters` is to serve as a minimal hackable starting point for creating your own data-driven character chatbots. It provides a simple library built on top of LangChain for processing any text corpus, creating character definitions, and managing memory, with various examples and interfaces that make it easy to spin up and debug your own character chatbots.
 
 ## Features
 This repo provides three ways to interact with your data-driven characters:
@@ -69,6 +69,15 @@ Now you can [chat with Evelyn on character.ai](https://c.ai/c/be5UgphMggDyaf504S
 ## Creating your own chatbots
 Beyond generating character.ai character definitions, this repo gives you tools to easily create, debug, and run your own chatbots trained on your own corpora.
 
+### Why create your own chatbot?
+
+If you primarily interested in accessibility and open-ended entertainment, character.ai is a better choice. 
+But if you want more control in the design of your chatbots, such as how your chatbots use memory, how they are initialized, and how they respond, `data-driven-characters` may be a better option to consider.
+
+Compare the conversation with the [Evelyn chatbot on character.ai](https://c.ai/c/be5UgphMggDyaf504SSdAdrlV2LHyEgFQZDA5WuQfgw) with our own Evelyn chatbot designed with `data-driven-characters`. The character.ai Evelyn appears to simply latch onto the local concepts present in the conversation, without bringing new information from its backstory. In contrast, our Evelyn chatbot stays in character and grounds its dialogue in real events from the transcript.
+<img width="1127" alt="image" src="https://github.com/mbchang/data-driven-characters/assets/6439365/4f60e314-7c19-4f3a-8925-517caa85dead">
+
+### Features
 This repo implements the following tools for packaging information for your character chatbots:
 1. character summary
 2. retrieval over the transcript
