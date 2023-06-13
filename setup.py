@@ -10,7 +10,6 @@ setup(
         'loguru',
         'notebook',
         'openai',
-        'streamlit',
         'streamlit_chat',
         'tiktoken',
         'tqdm',
