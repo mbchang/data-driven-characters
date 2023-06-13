@@ -19,7 +19,7 @@ class SummaryRetrievalChatBot:
     def __init__(self, character_definition, documents):
         self.character_definition = character_definition
         self.documents = documents
-        self.num_context_memories = 16
+        self.num_context_memories = 12
 
         self.chat_history_key = "chat_history"
         self.context_key = "context"
