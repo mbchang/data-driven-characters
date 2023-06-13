@@ -27,15 +27,35 @@ class Streamlit:
 
         if "messages" not in st.session_state:
             greeting = self.chatbot.greet()
-            st.session_state["messages"] = [{"role": "assistant", "content": greeting}]
+            st.session_state["messages"] = [
+                {
+                    "role": "assistant",
+                    "content": greeting,
+                    "key": 0,
+                }
+            ]
 
         for msg in st.session_state.messages:
-            message(msg["content"], is_user=msg["role"] == "user")
+            message(msg["content"], is_user=msg["role"] == "user", key=msg["key"])
 
         if user_input:
-            st.session_state.messages.append({"role": "user", "content": user_input})
-            message(user_input, is_user=True)
+            key = len(st.session_state.messages)
+            st.session_state.messages.append(
+                {
+                    "role": "user",
+                    "content": user_input,
+                    "key": key,
+                }
+            )
+            message(user_input, is_user=True, key=key)
             with st.spinner(f"{self.chatbot.character_definition.name} is thinking..."):
                 response = self.chatbot.step(user_input)
-            st.session_state.messages.append({"role": "assistant", "content": response})
-            message(response)
+            key = len(st.session_state.messages)
+            st.session_state.messages.append(
+                {
+                    "role": "assistant",
+                    "content": response,
+                    "key": key,
+                }
+            )
+            message(response, key=key)
