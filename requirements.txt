@@ -2,7 +2,6 @@ faiss-cpu
 langchain
 loguru
 openai
-streamlit
 streamlit_chat
 tiktoken
 tqdm
