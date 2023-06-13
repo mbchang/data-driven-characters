@@ -8,6 +8,7 @@ setup(
         'faiss-cpu',
         'langchain',
         'loguru',
+        'notebook',
         'openai',
         'streamlit_chat',
         'tiktoken',
