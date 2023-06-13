@@ -15,17 +15,7 @@ from data_driven_characters.chatbots import (
     RetrievalChatBot,
     SummaryRetrievalChatBot,
 )
-
-
-def reset_chat():
-    st.cache_resource.clear()
-    if "messages" in st.session_state:
-        del st.session_state["messages"]
-
-
-def clear_user_input():
-    if "user_input" in st.session_state:
-        st.session_state["user_input"] = ""
+from data_driven_characters.interfaces import reset_chat, clear_user_input, converse
 
 
 @st.cache_resource()
@@ -158,34 +148,7 @@ def main():
             rolling_summaries=rolling_summaries,
             chatbot_type=chatbot_type,
         )
-
-        left, right = st.columns([4, 1])
-        user_input = left.text_input(
-            label=f"Chat with {chatbot.character_definition.name}",
-            placeholder=f"Chat with {chatbot.character_definition.name}",
-            label_visibility="collapsed",
-            key="user_input",
-        )
-        reset_chatbot = right.button("Reset", on_click=clear_user_input)
-        if reset_chatbot:
-            reset_chat()
-
-        if "messages" not in st.session_state:
-            greeting = chatbot.greet()
-            st.session_state["messages"] = [{"role": "assistant", "content": greeting}]
-
-        # the old messages
-        for msg in st.session_state.messages:
-            message(msg["content"], is_user=msg["role"] == "user")
-
-        # the new message
-        if user_input:
-            st.session_state.messages.append({"role": "user", "content": user_input})
-            message(user_input, is_user=True)
-            with st.spinner(f"{chatbot.character_definition.name} is thinking..."):
-                response = chatbot.step(user_input)
-            st.session_state.messages.append({"role": "assistant", "content": response})
-            message(response)
+        converse(chatbot)
 
 
 if __name__ == "__main__":
