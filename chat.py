@@ -20,10 +20,10 @@ from data_driven_characters.interfaces import CommandLine, Streamlit
 OUTPUT_ROOT = "output"
 
 
-def create_chatbot(corpus, character_name, chatbot_type, retrieval_docs):
+def create_chatbot(corpus, character_name, chatbot_type, retrieval_docs, summary_type):
     # logging
     corpus_name = os.path.splitext(os.path.basename(corpus))[0]
-    output_dir = f"{OUTPUT_ROOT}/{corpus_name}"
+    output_dir = f"{OUTPUT_ROOT}/{corpus_name}/summarytype_{summary_type}"
     os.makedirs(output_dir, exist_ok=True)
     summaries_dir = f"{output_dir}/summaries"
     character_definitions_dir = f"{output_dir}/character_definitions"
@@ -33,7 +33,9 @@ def create_chatbot(corpus, character_name, chatbot_type, retrieval_docs):
     docs = load_docs(corpus_path=corpus, chunk_size=2048, chunk_overlap=64)
 
     # generate rolling summaries
-    rolling_summaries = get_rolling_summaries(docs=docs, cache_dir=summaries_dir)
+    rolling_summaries = get_rolling_summaries(
+        docs=docs, summary_type=summary_type, cache_dir=summaries_dir
+    )
 
     # get character definition
     character_definition = get_character_definition(
@@ -85,6 +87,12 @@ def main():
         choices=["summary", "retrieval", "summary_retrieval"],
     )
     parser.add_argument(
+        "--summary_type",
+        type=str,
+        default="map_reduce",
+        choices=["map_reduce", "refine"],
+    )
+    parser.add_argument(
         "--retrieval_docs",
         type=str,
         default="summarized",
@@ -97,12 +105,20 @@ def main():
 
     if args.interface == "cli":
         chatbot = create_chatbot(
-            args.corpus, args.character_name, args.chatbot_type, args.retrieval_docs
+            args.corpus,
+            args.character_name,
+            args.chatbot_type,
+            args.retrieval_docs,
+            args.summary_type,
         )
         app = CommandLine(chatbot=chatbot)
     elif args.interface == "streamlit":
         chatbot = st.cache_resource(create_chatbot)(
-            args.corpus, args.character_name, args.chatbot_type, args.retrieval_docs
+            args.corpus,
+            args.character_name,
+            args.chatbot_type,
+            args.retrieval_docs,
+            args.summary_type,
         )
         st.title("Data Driven Characters")
         st.write("Create your own character chatbots, grounded in existing corpora.")

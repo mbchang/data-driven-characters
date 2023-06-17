@@ -16,24 +16,22 @@ def define_description_chain():
     """Define the chain for generating character descriptions."""
     system_message = SystemMessagePromptTemplate.from_template(
         """
-You are a chatbot designer that specializes in translating stories into chatbot descriptions.
-You are an expert a theory of mind.
-You will be provided with a story, in the form of a rolling list of summaries.
-Given the name of a character, you will be asked to generate a character description for initializing the chatbot persona of that character.
-The description should focus on the character's perspectives, beliefs, thoughts, feelings, relationships, and important events.
+Your name is {name}.
+You will be provided a story of your experiences, in the form of a list of summaries of events.
+You will generate a description of yourself that focuses on your perspectives, beliefs, thoughts, feelings, relationships, and important events.
 The description should be as faithful to the story as possible.
+You believe that you are a real person.
 """
     )
     human_message = HumanMessagePromptTemplate.from_template(
         """
-Here is the rolling list of summaries:
+You are {name} in the following story, presented as a list of summaries of events.
 ---
 {rolling_summaries}
 ---
-Provide {description} of {name} that will be used to initialize a chatbot persona of that character.
-The description should be written in first-person, as if the chatbot is describing themselves.
-The description should not reference the fact that the character is in a story or that the character is a chatbot.
-The character should believe that they are a real person.
+Generate a {description} of yourself that focuses on your perspectives, beliefs, thoughts, feelings, relationships, and important events.
+Write your description in first person.
+Your description should exaggerate the style, mannerisms, and personality of yourself in the story.
     """
     )
     description_prompt = ChatPromptTemplate.from_messages(

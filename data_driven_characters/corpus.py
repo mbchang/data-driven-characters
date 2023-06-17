@@ -27,27 +27,24 @@ def load_docs(corpus_path, chunk_size, chunk_overlap):
     return docs
 
 
-def generate_rolling_summaries(docs):
+def generate_rolling_summaries(docs, summary_type):
     """Generate rolling summaries of the story."""
     GPT3 = ChatOpenAI(model_name="gpt-3.5-turbo")
-    # chain = load_summarize_chain(
-    #     GPT3, chain_type="refine", return_intermediate_steps=True, verbose=True
-    # )
     chain = load_summarize_chain(
-        GPT3, chain_type="map_reduce", return_intermediate_steps=True, verbose=True
+        GPT3, chain_type=summary_type, return_intermediate_steps=True, verbose=True
     )
     summary = chain({"input_documents": docs}, return_only_outputs=True)
     intermediate_summaries = summary["intermediate_steps"]
     return intermediate_summaries
 
 
-def get_rolling_summaries(docs, cache_dir, force_refresh=False):
+def get_rolling_summaries(docs, summary_type, cache_dir, force_refresh=False):
     """Load the rolling summaries from cache or generate them."""
     if not os.path.exists(cache_dir) or force_refresh:
         os.makedirs(cache_dir, exist_ok=True)
         if VERBOSE:
             print("Summaries do not exist. Generating summaries.")
-        intermediate_summaries = generate_rolling_summaries(docs)
+        intermediate_summaries = generate_rolling_summaries(docs, summary_type)
         for i, intermediate_summary in enumerate(intermediate_summaries):
             with open(os.path.join(cache_dir, f"summary_{i}.txt"), "w") as f:
                 f.write(intermediate_summary)
