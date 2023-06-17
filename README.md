@@ -71,7 +71,7 @@ Beyond generating character.ai character definitions, this repo gives you tools 
 
 ### Why create your own chatbot?
 
-If you primarily interested in accessibility and open-ended entertainment, character.ai is a better choice. 
+If you primarily interested in accessibility and open-ended entertainment, character.ai is a better choice.
 But if you want more control in the design of your chatbots, such as how your chatbots use memory, how they are initialized, and how they respond, `data-driven-characters` may be a better option to consider.
 
 Compare the conversation with the [Evelyn chatbot on character.ai](https://c.ai/c/be5UgphMggDyaf504SSdAdrlV2LHyEgFQZDA5WuQfgw) with our own Evelyn chatbot designed with `data-driven-characters`. The character.ai Evelyn appears to simply latch onto the local concepts present in the conversation, without bringing new information from its backstory. In contrast, our Evelyn chatbot stays in character and grounds its dialogue in real events from the transcript.
@@ -84,6 +84,7 @@ This repo implements the following tools for packaging information for your char
 3. retrieval over a summarized version of the transcript
 
 Generated transcript summaries and character definitions are cached in the `output/<corpus>` directory.
+To summarize the transcript, one has the option to either use the `map_reduce` or `refine` [summarization chain](https://github.com/hwchase17/langchain/tree/master/langchain/chains/summarize).
 
 ### Debug locally
 **Command Line Interface**
