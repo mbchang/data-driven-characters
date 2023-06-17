@@ -83,8 +83,8 @@ This repo implements the following tools for packaging information for your char
 2. retrieval over the transcript
 3. retrieval over a summarized version of the transcript
 
-Generated transcript summaries and character definitions are cached in the `output/<corpus>` directory.
 To summarize the transcript, one has the option to use [LangChain's `map_reduce` or `refine` chains] (https://langchain-langchain.vercel.app/docs/modules/chains/document/).
+Generated transcript summaries and character definitions are cached in the `output/<corpus>` directory.
 
 ### Debug locally
 **Command Line Interface**
@@ -166,7 +166,6 @@ Other pull requests are welcome. For major changes, please open an issue first t
 General points for improvement
 - better prompt engineering for embodying the speaking style of the character
 - new summarization techniques
-    - I tried to use the `mapreduce` summarization chain rather than the `refine` chain, but I noticed this has caused the character to not recognize that it is the character in the story. Should be straightforwardly fixed with better prompt engineering.
 - more customizable UI than what streamlit provides
 
 Concrete features to add
