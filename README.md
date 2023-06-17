@@ -83,7 +83,7 @@ This repo implements the following tools for packaging information for your char
 2. retrieval over the transcript
 3. retrieval over a summarized version of the transcript
 
-To summarize the transcript, one has the option to use [LangChain's `map_reduce` or `refine` chains] (https://langchain-langchain.vercel.app/docs/modules/chains/document/).
+To summarize the transcript, one has the option to use [LangChain's `map_reduce` or `refine` chains](https://langchain-langchain.vercel.app/docs/modules/chains/document/).
 Generated transcript summaries and character definitions are cached in the `output/<corpus>` directory.
 
 ### Debug locally
