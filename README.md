@@ -5,12 +5,12 @@ Generate character chatbots from existing corpora with [LangChain](https://docs.
 ![image](assets/teaser_chatbot.jpg)
 
 **TLDR: This repo enables you to create data-driven characters in three steps:**
-1. Upload a text corpus
-2. Specify the name of a character in the corpus
+1. Upload a corpus
+2. Name a character
 3. Enjoy
 
 ## About
-The purpose of data-driven-characters is to serve as a minimal hackable starting point for creating your own data-driven character chatbots. It provides a simple library built on top of LangChain for processing any text corpus, creating character definitions, and managing memory, with various examples and interfaces that make it easy to spin up and debug your own character chatbots.
+The purpose of `data-driven-characters` is to serve as a minimal hackable starting point for creating your own data-driven character chatbots. It provides a simple library built on top of LangChain for processing any text corpus, creating character definitions, and managing memory, with various examples and interfaces that make it easy to spin up and debug your own character chatbots.
 
 ## Features
 This repo provides three ways to interact with your data-driven characters:
@@ -69,6 +69,15 @@ Now you can [chat with Evelyn on character.ai](https://c.ai/c/be5UgphMggDyaf504S
 ## Creating your own chatbots
 Beyond generating character.ai character definitions, this repo gives you tools to easily create, debug, and run your own chatbots trained on your own corpora.
 
+### Why create your own chatbot?
+
+If you primarily interested in accessibility and open-ended entertainment, character.ai is a better choice. 
+But if you want more control in the design of your chatbots, such as how your chatbots use memory, how they are initialized, and how they respond, `data-driven-characters` may be a better option to consider.
+
+Compare the conversation with the [Evelyn chatbot on character.ai](https://c.ai/c/be5UgphMggDyaf504SSdAdrlV2LHyEgFQZDA5WuQfgw) with our own Evelyn chatbot designed with `data-driven-characters`. The character.ai Evelyn appears to simply latch onto the local concepts present in the conversation, without bringing new information from its backstory. In contrast, our Evelyn chatbot stays in character and grounds its dialogue in real events from the transcript.
+<img width="1127" alt="image" src="https://github.com/mbchang/data-driven-characters/assets/6439365/4f60e314-7c19-4f3a-8925-517caa85dead">
+
+### Features
 This repo implements the following tools for packaging information for your character chatbots:
 1. character summary
 2. retrieval over the transcript
@@ -144,11 +153,25 @@ The examples in this repo are movie transcripts taken from [Scraps from the Loft
     - [Peter "Maverick" Mitchell](https://c.ai/c/sWIpYun3StvmhHshlBx4q2l3pMuhceQFPTOvBwRpl9o)
     - [Bradley "Rooster" Bradshaw](https://c.ai/c/Cw7Nn7ufOGUwRKsQ2AGqMclIPwtSbvX6knyePMETev4)
     - [Admiral Cain](https://c.ai/c/5X8w0ZoFUGTOOghki2QtQx4QSfak2CEJC86Zn-jJCss)
+- Fan Fiction: [My Immortal](https://ia801201.us.archive.org/0/items/MyImmortalFanFiction/My%20Immortal.xhtml)
+    - [Ebony Dark'ness Dementia Raven Way](https://c.ai/c/7rOo5z_Nfa-nAlz8hKEezzxTPE6amGXRow98m0v05XY) (courtesy of [@sdtoyer](https://twitter.com/sdtoyer))
 
 ## Contributing
 Contribute your characters with a pull request by placing the link to the character [above](#characters-generated-with-this-repo), along with a link to the text corpus you used to generate them with.
 
 Other pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+### RoadMap
+General points for improvement
+- better prompt engineering for embodying the speaking style of the character
+- new summarization techniques
+    - I tried to use the `mapreduce` summarization chain rather than the `refine` chain, but I noticed this has caused the character to not recognize that it is the character in the story. Should be straightforwardly fixed with better prompt engineering.
+- more customizable UI than what streamlit provides
+
+Concrete features to add
+- [ ] Add the option to summarize the raw corpus from the character's perspective. This would be more expensive, because we cannot reuse corpus summaries for other characters, but it could make the character personality more realistic
+- [ ] recursive summarization
+- [ ] calculate token expenses
 
 <!-- Please make sure to update tests as appropriate. -->
 
