@@ -104,6 +104,7 @@ python -m streamlit run chat.py -- --corpus data/everything_everywhere_all_at_on
 ```
 This produces a UI based on [the official Streamlit chatbot example]([url](https://github.com/streamlit/llm-examples/blob/main/Chatbot.py)) that looks like this:
 ![image](https://github.com/mbchang/data-driven-characters/assets/6439365/14317eaa-d2d9-48fa-ac32-7f515825cb85)
+It uses the `map_reduce` summarization chain for generating corpus summaries by default.
 
 
 ### Host on Streamlit

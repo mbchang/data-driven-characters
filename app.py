@@ -47,7 +47,7 @@ def process_corpus(corpus):
     )
 
     # generate rolling summaries
-    rolling_summaries = generate_rolling_summaries(docs=docs)
+    rolling_summaries = generate_rolling_summaries(docs=docs, summary_type="map_reduce")
     return rolling_summaries
 
 
