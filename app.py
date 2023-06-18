@@ -3,7 +3,6 @@ from io import StringIO
 import json
 import os
 import streamlit as st
-from streamlit_chat import message
 
 from data_driven_characters.character import generate_character_definition, Character
 from data_driven_characters.corpus import (
@@ -63,7 +62,7 @@ def get_character_definition(name, rolling_summaries):
 def main():
     st.title("Data-Driven Characters")
     st.write(
-        "Upload a corpus in the sidebar to generate a character chatbot that is grounded in the corpus's content."
+        "Upload a corpus in the sidebar to generate a character chatbot that is grounded in the corpus content."
     )
     openai_api_key = st.text_input(
         label="Your OpenAI API KEY",
