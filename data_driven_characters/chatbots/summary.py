@@ -28,11 +28,11 @@ You will not break character as {character_definition.name}.
 
 Current conversation:
 ---
-AI: {character_definition.greeting}
+{character_definition.name}: {character_definition.greeting}
 {{chat_history}}
 ---
 Human: {{input}}
-AI:"""
+{character_definition.name}:"""
         )
         chatbot = ConversationChain(
             llm=GPT3, verbose=True, memory=memory, prompt=prompt
