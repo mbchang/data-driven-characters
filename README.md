@@ -164,15 +164,19 @@ Contribute your characters with a pull request by placing the link to the charac
 Other pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ### RoadMap
-General points for improvement
+General points for improvement:
 - better prompt engineering for embodying the speaking style of the character
 - new summarization techniques
 - more customizable UI than what streamlit provides
 
-Concrete features to add
+Concrete features to add:
 - [ ] Add the option to summarize the raw corpus from the character's perspective. This would be more expensive, because we cannot reuse corpus summaries for other characters, but it could make the character personality more realistic
 - [ ] recursive summarization
 - [ ] calculate token expenses
+
+Known issues:
+- In the [hosted app](https://github.com/mbchang/data-driven-characters/tree/main#host-on-streamlit), clicking "Rerun" does not reset the conversation. Streamlit is implemented in such a way that the entire app script (in this case `app.py`) from top to bottom every time a user interacts with the app, which means that we need to use `st.session_state` to cache previous messages in the conversation. What this means, however, is that the `st.session_state` persists when the user clicks "Rerun". **Therefore, to reset the conversation, please click the "Reset" button instead.**
+
 
 <!-- Please make sure to update tests as appropriate. -->
 
