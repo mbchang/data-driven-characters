@@ -6,7 +6,7 @@ import streamlit as st
 
 from data_driven_characters.character import generate_character_definition, Character
 from data_driven_characters.corpus import (
-    generate_rolling_summaries,
+    generate_corpus_summaries,
     generate_docs,
 )
 from data_driven_characters.chatbots import (
@@ -18,18 +18,18 @@ from data_driven_characters.interfaces import reset_chat, clear_user_input, conv
 
 
 @st.cache_resource()
-def create_chatbot(character_definition, rolling_summaries, chatbot_type):
+def create_chatbot(character_definition, corpus_summaries, chatbot_type):
     if chatbot_type == "summary":
         chatbot = SummaryChatBot(character_definition=character_definition)
     elif chatbot_type == "retrieval":
         chatbot = RetrievalChatBot(
             character_definition=character_definition,
-            documents=rolling_summaries,
+            documents=corpus_summaries,
         )
     elif chatbot_type == "summary with retrieval":
         chatbot = SummaryRetrievalChatBot(
             character_definition=character_definition,
-            documents=rolling_summaries,
+            documents=corpus_summaries,
         )
     else:
         raise ValueError(f"Unknown chatbot type: {chatbot_type}")
@@ -45,16 +45,16 @@ def process_corpus(corpus):
         chunk_overlap=64,
     )
 
-    # generate rolling summaries
-    rolling_summaries = generate_rolling_summaries(docs=docs, summary_type="map_reduce")
-    return rolling_summaries
+    # generate summaries
+    corpus_summaries = generate_corpus_summaries(docs=docs, summary_type="map_reduce")
+    return corpus_summaries
 
 
 @st.cache_data(persist="disk")
-def get_character_definition(name, rolling_summaries):
+def get_character_definition(name, corpus_summaries):
     character_definition = generate_character_definition(
         name=name,
-        rolling_summaries=rolling_summaries,
+        corpus_summaries=corpus_summaries,
     )
     return asdict(character_definition)
 
@@ -111,13 +111,13 @@ def main():
                 st.session_state["character_name"] = character_name
 
                 with st.spinner("Processing corpus (this will take a while)..."):
-                    rolling_summaries = process_corpus(corpus)
+                    corpus_summaries = process_corpus(corpus)
 
                 with st.spinner("Generating character definition..."):
                     # get character definition
                     character_definition = get_character_definition(
                         name=character_name,
-                        rolling_summaries=rolling_summaries,
+                        corpus_summaries=corpus_summaries,
                     )
 
                     print(json.dumps(character_definition, indent=4))
@@ -144,7 +144,7 @@ def main():
         st.divider()
         chatbot = create_chatbot(
             character_definition=Character(**character_definition),
-            rolling_summaries=rolling_summaries,
+            corpus_summaries=corpus_summaries,
             chatbot_type=chatbot_type,
         )
         converse(chatbot)

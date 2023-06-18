@@ -37,7 +37,7 @@ from dataclasses import asdict
 import json
 
 from data_driven_characters.character import generate_character_definition
-from data_driven_characters.corpus import generate_rolling_summaries, load_docs
+from data_driven_characters.corpus import generate_corpus_summaries, load_docs
 
 # copy the transcript into this text file
 CORPUS = 'data/everything_everywhere_all_at_once.txt'
@@ -51,7 +51,7 @@ docs = load_docs(corpus_path=CORPUS, chunk_size=2048, chunk_overlap=64)
 # generate character.ai character definition
 character_definition = generate_character_definition(
     name=CHARACTER_NAME,
-    rolling_summaries=generate_rolling_summaries(docs=docs))
+    corpus_summaries=generate_corpus_summaries(docs=docs))
 
 print(json.dumps(asdict(character_definition), indent=4))
 ```

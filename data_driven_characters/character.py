@@ -22,7 +22,7 @@ class Character:
     greeting: str
 
 
-def generate_character_ai_description(name, rolling_summaries, char_limit):
+def generate_character_ai_description(name, corpus_summaries, char_limit):
     """Generate a character description with a certain number of characters."""
     lower_limit = char_limit - 10 ** (order_of_magnitude(char_limit))
 
@@ -35,7 +35,7 @@ def generate_character_ai_description(name, rolling_summaries, char_limit):
         verbose=VERBOSE,
     )
     description = char_limit_chain.run(
-        rolling_summaries="\n\n".join(rolling_summaries),
+        corpus_summaries="\n\n".join(corpus_summaries),
         description=f"{lower_limit}-character description",  # specify a fewer characters than the limit
         name=name,
     )
@@ -72,13 +72,13 @@ This greeting should reflect their personality.
     return greeting
 
 
-def generate_character_definition(name, rolling_summaries):
+def generate_character_definition(name, corpus_summaries):
     """Generate a Character.ai definition."""
     short_description = generate_character_ai_description(
-        name=name, rolling_summaries=rolling_summaries, char_limit=50
+        name=name, corpus_summaries=corpus_summaries, char_limit=50
     )
     long_description = generate_character_ai_description(
-        name=name, rolling_summaries=rolling_summaries, char_limit=500
+        name=name, corpus_summaries=corpus_summaries, char_limit=500
     )
     greeting = generate_greeting(name, short_description, long_description)
 
@@ -92,12 +92,12 @@ def generate_character_definition(name, rolling_summaries):
     return character_definition
 
 
-def get_character_definition(name, rolling_summaries, cache_dir, force_refresh=False):
+def get_character_definition(name, corpus_summaries, cache_dir, force_refresh=False):
     """Get a Character.ai definition from a cache or generate it."""
     cache_path = f"{cache_dir}/{apply_file_naming_convention(name)}.json"
 
     if not os.path.exists(cache_path) or force_refresh:
-        character_definition = generate_character_definition(name, rolling_summaries)
+        character_definition = generate_character_definition(name, corpus_summaries)
         with open(cache_path, "w") as f:
             json.dump(asdict(character_definition), f)
     else:

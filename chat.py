@@ -6,7 +6,7 @@ import streamlit as st
 
 from data_driven_characters.character import get_character_definition
 from data_driven_characters.corpus import (
-    get_rolling_summaries,
+    get_corpus_summaries,
     load_docs,
 )
 
@@ -32,15 +32,15 @@ def create_chatbot(corpus, character_name, chatbot_type, retrieval_docs, summary
     # load docs
     docs = load_docs(corpus_path=corpus, chunk_size=2048, chunk_overlap=64)
 
-    # generate rolling summaries
-    rolling_summaries = get_rolling_summaries(
+    # generate summaries
+    corpus_summaries = get_corpus_summaries(
         docs=docs, summary_type=summary_type, cache_dir=summaries_dir
     )
 
     # get character definition
     character_definition = get_character_definition(
         name=character_name,
-        rolling_summaries=rolling_summaries,
+        corpus_summaries=corpus_summaries,
         cache_dir=character_definitions_dir,
     )
     print(json.dumps(asdict(character_definition), indent=4))
@@ -52,7 +52,7 @@ def create_chatbot(corpus, character_name, chatbot_type, retrieval_docs, summary
             for doc in load_docs(corpus_path=corpus, chunk_size=256, chunk_overlap=16)
         ]
     elif retrieval_docs == "summarized":
-        documents = rolling_summaries
+        documents = corpus_summaries
     else:
         raise ValueError(f"Unknown retrieval docs type: {retrieval_docs}")
 

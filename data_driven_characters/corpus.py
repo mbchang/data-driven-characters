@@ -27,8 +27,8 @@ def load_docs(corpus_path, chunk_size, chunk_overlap):
     return docs
 
 
-def generate_rolling_summaries(docs, summary_type="map_reduce"):
-    """Generate rolling summaries of the story."""
+def generate_corpus_summaries(docs, summary_type="map_reduce"):
+    """Generate summaries of the story."""
     GPT3 = ChatOpenAI(model_name="gpt-3.5-turbo")
     chain = load_summarize_chain(
         GPT3, chain_type=summary_type, return_intermediate_steps=True, verbose=True
@@ -38,13 +38,13 @@ def generate_rolling_summaries(docs, summary_type="map_reduce"):
     return intermediate_summaries
 
 
-def get_rolling_summaries(docs, summary_type, cache_dir, force_refresh=False):
-    """Load the rolling summaries from cache or generate them."""
+def get_corpus_summaries(docs, summary_type, cache_dir, force_refresh=False):
+    """Load the corpus summaries from cache or generate them."""
     if not os.path.exists(cache_dir) or force_refresh:
         os.makedirs(cache_dir, exist_ok=True)
         if VERBOSE:
             print("Summaries do not exist. Generating summaries.")
-        intermediate_summaries = generate_rolling_summaries(docs, summary_type)
+        intermediate_summaries = generate_corpus_summaries(docs, summary_type)
         for i, intermediate_summary in enumerate(intermediate_summaries):
             with open(os.path.join(cache_dir, f"summary_{i}.txt"), "w") as f:
                 f.write(intermediate_summary)
@@ -58,26 +58,26 @@ def get_rolling_summaries(docs, summary_type, cache_dir, force_refresh=False):
     return intermediate_summaries
 
 
-def generate_characters(rolling_summaries, num_characters):
-    """Get a list of characters from a list of rolling summaries."""
+def generate_characters(corpus_summaries, num_characters):
+    """Get a list of characters from a list of summaries."""
     GPT4 = ChatOpenAI(model_name="gpt-4")
     characters_prompt_template = """Consider the following corpus.
     ---
-    {rolling_summaries}
+    {corpus_summaries}
     ---
     Give a line-separated list of all the characters, ordered by importance, without punctuation.
     """
     characters = LLMChain(
         llm=GPT4, prompt=PromptTemplate.from_template(characters_prompt_template)
-    ).run(rolling_summaries="\n\n".join(rolling_summaries))
+    ).run(corpus_summaries="\n\n".join(corpus_summaries))
     # remove (, ), and " for each element of list
     return characters.split("\n")[:num_characters]
 
 
-def get_characters(rolling_summaries, num_characters, cache_dir, force_refresh=False):
+def get_characters(corpus_summaries, num_characters, cache_dir, force_refresh=False):
     cache_file = os.path.join(cache_dir, "characters.json")
     if not os.path.exists(cache_file) or force_refresh:
-        characters = generate_characters(rolling_summaries, num_characters)
+        characters = generate_characters(corpus_summaries, num_characters)
         with open(cache_file, "w") as f:
             json.dump(characters, f)
     else:

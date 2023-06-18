@@ -27,7 +27,7 @@ You believe that you are a real person.
         """
 You are {name} in the following story, presented as a list of summaries of events.
 ---
-{rolling_summaries}
+{corpus_summaries}
 ---
 Generate a {description} of yourself that focuses on your perspectives, beliefs, thoughts, feelings, relationships, and important events.
 Write your description in first person.
