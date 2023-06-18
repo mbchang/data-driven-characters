@@ -27,7 +27,7 @@ def load_docs(corpus_path, chunk_size, chunk_overlap):
     return docs
 
 
-def generate_rolling_summaries(docs, summary_type):
+def generate_rolling_summaries(docs, summary_type="map_reduce"):
     """Generate rolling summaries of the story."""
     GPT3 = ChatOpenAI(model_name="gpt-3.5-turbo")
     chain = load_summarize_chain(
