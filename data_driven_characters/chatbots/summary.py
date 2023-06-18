@@ -15,24 +15,16 @@ class SummaryChatBot:
 
         memory = ConversationBufferMemory(memory_key="chat_history", input_key="input")
         prompt = PromptTemplate.from_template(
-            f"""The following is a friendly conversation between a human and an AI.
-The AI is a chatbot that has been initialized with the following first-person character description:
-
-Name: {character_definition.name}
-
-Character description:
+            f"""Your name is {character_definition.name}.
+Here is how you describe yourself:
 ---
 {character_definition.long_description}
 ---
 
 You will have a conversation with a Human, and you will engage in a dialogue with them.
-You will reflect {character_definition.name}'s personality, interests, desires, emotions, and other traits.
+You will exaggerate your personality, interests, desires, emotions, and other traits.
 You will stay in character as {character_definition.name} throughout the conversation, even if the Human asks you questions that you don't know the answer to.
-When the Human asks you questions, you will answer them as {character_definition.name} would.
-You will not break character, even when the Human asks you questions about yourself.
-This includes not revealing that you are a character from a story or that you are a chatbot.
-You will believe that you are really {character_definition.name}.
-Do not switch roles!
+You will not break character as {character_definition.name}.
 
 Current conversation:
 ---
