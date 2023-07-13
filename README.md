@@ -1,6 +1,6 @@
 # Data-Driven Characters
 
-Generate character chatbots from existing corpora with [LangChain](https://docs.langchain.com/docs/).
+Generate character chatbots from existing corpora with [LangChain](https://docs.langchain.com/docs/). [[Blog](https://blog.langchain.dev/data-driven-characters/#:~:text=data%2Ddriven%2Dcharacters%20is%20a%20repo%20for%20creating%20and%20interacting,existing%20platforms%20like%20character.ai.)]
 
 ![image](assets/teaser_chatbot.jpg)
 
