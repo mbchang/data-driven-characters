@@ -136,6 +136,13 @@ Install the package and its dependencies with:
 pip install -e .
 ```
 
+Store your OpenAI API key, either as an environment variable, or as the last line of your `.bashrc` or `.zshrc`:
+
+```
+export OPENAI_API_KEY=<your_openai_api_key sk-...>
+```
+
+
 ## Data
 The examples in this repo are movie transcripts taken from [Scraps from the Loft](https://scrapsfromtheloft.com/). However, any text corpora can be used, including books and interviews.
 
