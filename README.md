@@ -139,7 +139,7 @@ pip install -e .
 Store your OpenAI API key, either as an environment variable, or as the last line of your `.bashrc` or `.zshrc`:
 
 ```
-export OPENAI_API_KEY=sk-...
+export OPENAI_API_KEY=<your_openai_api_key sk-...>
 ```
 
 
