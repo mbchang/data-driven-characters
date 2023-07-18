@@ -89,12 +89,6 @@ Generated transcript summaries and character definitions are cached in the `outp
 ### Debug locally
 **Command Line Interface**
 
-Set `OPENAI_API_KEY` environment variable:
-
-```
-OPENAI_API_KEY=sk-...
-```
-
 Example command:
 
 ```
@@ -141,6 +135,13 @@ Install the package and its dependencies with:
 ```bash
 pip install -e .
 ```
+
+Store your OpenAI API key, either as an environment variable, or as the last line of your `.bashrc` or `.zshrc`:
+
+```
+export OPENAI_API_KEY=sk-...
+```
+
 
 ## Data
 The examples in this repo are movie transcripts taken from [Scraps from the Loft](https://scrapsfromtheloft.com/). However, any text corpora can be used, including books and interviews.
