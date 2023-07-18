@@ -89,6 +89,12 @@ Generated transcript summaries and character definitions are cached in the `outp
 ### Debug locally
 **Command Line Interface**
 
+Set `OPENAI_API_KEY` environment variable:
+
+```
+OPENAI_API_KEY=sk-...
+```
+
 Example command:
 
 ```
